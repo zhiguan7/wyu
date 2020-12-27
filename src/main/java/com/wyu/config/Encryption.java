@@ -2,11 +2,11 @@ package com.wyu.config;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Encryption {
 
-    @Bean
     public String encipher(String str1,String str2){
         Object salt= ByteSource.Util.bytes(str1);
         int hashIterations = 101;
