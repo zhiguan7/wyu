@@ -7,6 +7,6 @@ import java.util.List;
 public interface UserService {
 
     List<User> searchUserAll();
-
     User searchByName(String name);
+    void add(User user);
 }
