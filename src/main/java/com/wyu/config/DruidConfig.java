@@ -31,7 +31,7 @@ public class DruidConfig {
         map.put("loginPassword","123");
 
         //允许访问
-        map.put("allow","localhost");
+        map.put("allow","127.0.0.1");
 
         bean.setInitParameters(map);
 
