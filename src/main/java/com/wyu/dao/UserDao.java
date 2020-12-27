@@ -8,4 +8,5 @@ public interface UserDao extends JpaRepository<User,Long> {
 
     @Query("select * from user where user_name = ?1")
     User findByUserName(String name);
+
 }
