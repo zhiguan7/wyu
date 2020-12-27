@@ -51,18 +51,19 @@ public class Orders implements Serializable {
     private Payment payment; //支付状态
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_time", nullable = true)
+    @Column(name = "create_time")
     private Date create_time; //交易创建时间
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "pay_time", nullable = true)
+    @Column(name = "pay_time")
     private Date pay_time; //交易付款时间
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "completion_time", nullable = true)
+    @Column(name = "completion_time")
     private Date completion_time; //交易关闭时间
 
     public enum Payment {
-        UNPAID,PAID
+        UNPAID, //未支付
+        PAID //已支付
     }
 }

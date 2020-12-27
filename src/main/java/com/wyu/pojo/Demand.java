@@ -47,7 +47,7 @@ public class Demand implements Serializable {
     private String describes; //需求描述
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_time", nullable = true)
+    @Column(name = "create_time")
     private Date create_time; //创建时间
 
     @Column(name = "recommend",length = 200)
@@ -67,7 +67,12 @@ public class Demand implements Serializable {
     private User user;
 
     public enum demandState {
-        ACTIVE,
-        CLOSE
+        SUBMIT, //待提交
+        SUBMITED, //已提交
+        AUDIT, //待审核
+        AUDITED, //审核中
+        TEST, //待检测
+        TESTED, //检测中
+        FINISH //完成
     }
 }

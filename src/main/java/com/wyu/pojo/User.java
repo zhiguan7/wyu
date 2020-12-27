@@ -71,21 +71,21 @@ public class User implements Serializable {
     private List<Demand> demands;
 
     public enum Role {
-        USER,
-        ADMINISTRATORS,
-        CUSTOMER_SERVICE,
-        FACTORY,
-        INSTITUTION;
+        USER, //普通用户
+        ADMINISTRATORS, //管理员
+        CUSTOMER_SERVICE, //客服人员
+        FACTORY, //工厂
+        INSTITUTION //机构
     }
 
     public enum State {
-        ACTIVE,
-        CLOSE
+        ACTIVE, //活跃
+        CLOSE //注销
     }
 
     public enum Gender {
-        BOY,
-        GIRL,
-        OTHER
+        MAN, //男
+        WOMAN, //女
+        OTHER //未知
     }
 }
