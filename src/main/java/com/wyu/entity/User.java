@@ -1,17 +1,16 @@
 package com.wyu.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements Serializable {
@@ -67,11 +66,11 @@ public class User implements Serializable {
 
     @JsonIgnore
     @OneToMany(targetEntity = Orders.class,mappedBy = "user",fetch=FetchType.LAZY)
-    private List<Orders> orders;
+    private Set<Orders> orders;
 
     @JsonIgnore
     @OneToMany(targetEntity = Demand.class,mappedBy = "user",fetch=FetchType.LAZY)
-    private List<Demand> demands;
+    private Set<Demand> demands;
 
     public enum Role {
         USER, //普通用户

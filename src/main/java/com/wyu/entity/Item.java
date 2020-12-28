@@ -1,17 +1,16 @@
 package com.wyu.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "item")
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item implements Serializable {
@@ -48,7 +47,7 @@ public class Item implements Serializable {
     @JoinTable(name = "ins_item"
             ,joinColumns = @JoinColumn(name = "item_id",referencedColumnName = "item_id")
             ,inverseJoinColumns = @JoinColumn(name = "institution_id",referencedColumnName = "institution_id"))
-    private List<Institution> institutions;
+    private Set<Institution> institutions;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="orders_id",nullable = false)
