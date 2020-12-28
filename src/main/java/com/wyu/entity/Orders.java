@@ -1,18 +1,17 @@
 package com.wyu.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Orders implements Serializable {
@@ -33,7 +32,7 @@ public class Orders implements Serializable {
 
     @JsonIgnore
     @OneToMany(targetEntity = Item.class,mappedBy = "orders",fetch=FetchType.LAZY)
-    private List<Item> items;
+    private Set<Item> items;
 
     @Column(name = "price",length = 20)
     private float price; //项目总价格(不包含杂项费用)

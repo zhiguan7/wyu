@@ -1,17 +1,16 @@
 package com.wyu.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "institution")
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Institution implements Serializable {
@@ -62,10 +61,10 @@ public class Institution implements Serializable {
     private String other; //其他
 
     @ManyToMany(targetEntity = Item.class,mappedBy = "institutions",fetch= FetchType.LAZY)
-    private List<Item> items;
+    private Set<Item> items;
 
     @JsonIgnore
     @OneToMany(targetEntity = Orders.class,mappedBy = "institution",fetch=FetchType.LAZY)
-    private List<Orders> orders;
+    private Set<Orders> orders;
 
 }
