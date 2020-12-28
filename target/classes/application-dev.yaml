@@ -41,3 +41,15 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: Asia/Shanghai
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    max-wait: 30000
+    max-active: 100
+    max-idle: 20
+    min-idle: 0
+    timeout: 3000
+  data:
+    redis:
+      repositories:
+        enabled: false
