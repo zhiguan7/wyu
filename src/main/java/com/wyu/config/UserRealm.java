@@ -1,6 +1,6 @@
 package com.wyu.config;
 
-import com.wyu.pojo.User;
+import com.wyu.entity.User;
 import com.wyu.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -38,9 +38,9 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         System.out.println("————————————认证————————————");
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
-        User user = userService.searchByName(token.getUsername());
+        User user = userService.searchByEmail(token.getUsername()); //token中的username实际上是邮箱
         if(user==null) return null;
-        ByteSource salt = ByteSource.Util.bytes(user.getUser_name());
+        ByteSource salt = ByteSource.Util.bytes(user.getUser_email());
         return new SimpleAuthenticationInfo(user,user.getUser_password(),salt,this.getName());
     }
 }

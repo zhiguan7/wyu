@@ -1,4 +1,4 @@
-package com.wyu.pojo;
+package com.wyu.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

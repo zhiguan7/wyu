@@ -1,7 +1,7 @@
 package com.wyu.service;
 
 import com.wyu.dao.UserDao;
-import com.wyu.pojo.User;
+import com.wyu.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User searchByName(String name) {
-        return userDao.findByUserName(name);
+    public User searchByEmail(String email) {
+        return userDao.findByUserEmail(email);
     }
 
     @Override

@@ -1,7 +1,6 @@
-package com.wyu.pojo;
+package com.wyu.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -62,6 +61,9 @@ public class User implements Serializable {
 
     @Column(name = "other",length = 200)
     private String other; //其他
+
+    @Transient
+    private String code; //验证码
 
     @JsonIgnore
     @OneToMany(targetEntity = Orders.class,mappedBy = "user",fetch=FetchType.LAZY)
