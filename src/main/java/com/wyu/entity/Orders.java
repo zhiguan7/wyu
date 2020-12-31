@@ -47,22 +47,20 @@ public class Orders implements Serializable {
     private String type; //交易类型
 
     @Enumerated(EnumType.ORDINAL)
-    private Payment payment; //支付状态
+    private Payment payment; //订单状态
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time")
-    private Date create_time; //交易创建时间
+    private int create_time; //交易创建时间
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "pay_time")
-    private Date pay_time; //交易付款时间
+    private int pay_time; //交易付款时间
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "completion_time")
-    private Date completion_time; //交易关闭时间
+    private int completion_time; //交易关闭时间
 
     public enum Payment {
-        UNPAID, //未支付
-        PAID //已支付
+        UNPAID, //待支付
+        PAID, //已支付
+        FINISH //已完成
     }
 }

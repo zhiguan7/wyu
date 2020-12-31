@@ -77,7 +77,8 @@ public class User implements Serializable {
         ADMINISTRATORS, //管理员
         CUSTOMER_SERVICE, //客服人员
         FACTORY, //工厂
-        INSTITUTION //机构
+        INSTITUTION, //机构
+        FACTORY_AND_INSTITUTION //工厂和机构双重身份
     }
 
     public enum State {

@@ -1,6 +1,6 @@
 package com.wyu;
 
-import com.wyu.util.RandomCode;
+import com.wyu.util.CodeUtil;
 import com.wyu.util.RedisUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ class TestInstitutionBeApplicationTests {
 	@Test
 	void contextLoads() {
 
-		redisUtil.set("code",RandomCode.randomCode(),10);
+		redisUtil.set("code", CodeUtil.randomCode(),10);
 		System.out.println(redisUtil.get("code"));
 
 	}

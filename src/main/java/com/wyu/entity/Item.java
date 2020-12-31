@@ -42,6 +42,9 @@ public class Item implements Serializable {
     @Column(name = "item_remarks",length = 2000)
     private String item_remarks; //备注
 
+    @Enumerated(EnumType.ORDINAL)
+    private Item_state item_state; //项目上架状态
+
     @JsonIgnore
     @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(name = "ins_item"
@@ -52,5 +55,10 @@ public class Item implements Serializable {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="orders_id",nullable = false)
     private Orders orders;
+
+    public enum Item_state{
+        ON,
+        OFF
+    }
 
 }

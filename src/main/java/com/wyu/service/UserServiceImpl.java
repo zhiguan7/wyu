@@ -2,6 +2,11 @@ package com.wyu.service;
 
 import com.wyu.dao.UserDao;
 import com.wyu.entity.User;
+import com.wyu.util.CodeUtil;
+import com.wyu.util.MailSenderUtil;
+import com.wyu.util.RedisUtil;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +19,10 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private RedisUtil ru;
+    @Autowired
+    private MailSenderUtil msu;
 
     @Override
     public List<User> searchUserAll() {
@@ -29,4 +38,11 @@ public class UserServiceImpl implements UserService{
     public void add(User user) {
         userDao.save(user);
     }
+
+    @Override
+    public void update(User user) {
+        userDao.update(user);
+    }
+
+
 }

@@ -60,6 +60,9 @@ public class Institution implements Serializable {
     @Column(name = "other",length = 200)
     private String other; //其他
 
+    @Enumerated(EnumType.ORDINAL)
+    private I_state i_state; //申请状态
+
     @ManyToMany(targetEntity = Item.class,mappedBy = "institutions",fetch= FetchType.LAZY)
     private Set<Item> items;
 
@@ -67,4 +70,9 @@ public class Institution implements Serializable {
     @OneToMany(targetEntity = Orders.class,mappedBy = "institution",fetch=FetchType.LAZY)
     private Set<Orders> orders;
 
+    public enum I_state{
+        APPLY,
+        SUCCESS,
+        FAIL
+    }
 }
