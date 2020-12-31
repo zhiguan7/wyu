@@ -4,7 +4,7 @@ import com.wyu.util.Encryption;
 import com.wyu.entity.User;
 import com.wyu.service.UserService;
 import com.wyu.util.MailSenderUtil;
-import com.wyu.util.RandomCode;
+import com.wyu.util.CodeUtil;
 import com.wyu.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @RestController
@@ -34,7 +33,7 @@ public class RegisterController {
         if (us.searchByEmail(user.getUser_email()) != null)
             return 0;
         else {
-            user.setCode(RandomCode.randomCode());
+            user.setCode(CodeUtil.randomCode());
             ru.set(user.getUser_email(), user.getCode(), 5 * 60);
             msu.send(user.getUser_email(), user.getCode());
         }

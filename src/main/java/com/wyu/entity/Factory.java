@@ -46,7 +46,15 @@ public class Factory implements Serializable {
     @Column(name = "factory_pic",length = 200)
     private String factory_pic; //工厂介绍图片
 
+    @Enumerated(EnumType.ORDINAL)
+    private F_state f_state; //申请状态
+
     @Column(name = "other",length = 200,unique=true)
     private String other; //其他
 
+    public enum F_state{
+        APPLY,
+        SUCCESS,
+        FAIL
+    }
 }

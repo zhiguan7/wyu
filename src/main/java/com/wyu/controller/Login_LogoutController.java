@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class LoginAndLogoutController {
+public class Login_LogoutController {
 
     @Autowired
     private UserService us;

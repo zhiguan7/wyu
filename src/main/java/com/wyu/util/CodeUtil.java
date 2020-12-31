@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.Random;
 
 @Component
-public class RandomCode {
+public class CodeUtil {
 
     public static String randomCode() {
         StringBuilder str = new StringBuilder();
@@ -15,4 +15,5 @@ public class RandomCode {
         }
         return str.toString();
     }
+
 }
