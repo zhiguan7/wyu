@@ -42,4 +42,18 @@ public class ExamineController {
         }
         return new ReturnValue<List<Factory>, List<Institution>>(ret,msg,f,i);
     }
+
+    @CrossOrigin
+    @PostMapping("/approval")
+    public int approval(){
+
+        return 0;
+    }
+
+    @CrossOrigin
+    @PostMapping("/reject")
+    public int reject(){
+
+        return 0;
+    }
 }
