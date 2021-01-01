@@ -25,24 +25,22 @@ public class RegisterController {
 
     @CrossOrigin
     @PostMapping("/register")
-    public int register(@RequestBody User user) {
+        public int register(@RequestBody User user) {
 
-        this.user = user;
-        if (us.searchByEmail(user.getUser_email()) != null)
-            return 0;
-        else {
-            user.setCode(CodeUtil.randomCode());
-            ru.set(user.getUser_email(), user.getCode(), 5 * 60);
-            msu.send(user.getUser_email(), user.getCode());
-        }
-        return 1;
+            if (us.searchByEmail(user.getUser_email()) != null)
+                return 0;
+            else {
+                user.setCode(CodeUtil.randomCode());
+                ru.set(user.getUser_email(), user.getCode(), 5 * 60);
+                msu.send(user.getUser_email(), user.getCode());
+            }
+            return 1;
     }
 
     @CrossOrigin
     @PostMapping("/verify")
-    public int verify(@RequestBody Map<String,String> map){
-        User user = this.user;
-        if(!ru.get(user.getUser_email()).toString().equals(map.get("code")))
+    public int verify(@RequestBody User user){
+        if(!ru.get(user.getUser_email()).toString().equals(user.getCode()))
             return 0;
         user.setUser_password(Encryption.encipher(user.getUser_email(),user.getUser_password()));
         try {
