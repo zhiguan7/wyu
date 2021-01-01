@@ -23,9 +23,10 @@ public class Info_updateController {
     private RedisUtil ru;
     @Autowired
     private MailSenderUtil msu;
+    @Autowired
+    private User user;
 
-    private User user = new User();
-
+    @CrossOrigin
     @PostMapping("/user")
     public int userUpdate(@RequestBody User user){
         Subject subject = SecurityUtils.getSubject();
@@ -58,6 +59,7 @@ public class Info_updateController {
         return 1;
     }
 
+    @CrossOrigin
     @GetMapping("/verify")
     public int verify(@RequestBody Map<String,String> map){
         User user = this.user;
