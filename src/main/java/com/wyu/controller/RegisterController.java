@@ -7,10 +7,7 @@ import com.wyu.util.MailSenderUtil;
 import com.wyu.util.CodeUtil;
 import com.wyu.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -23,9 +20,10 @@ public class RegisterController {
     private RedisUtil ru;
     @Autowired
     private MailSenderUtil msu;
+    @Autowired
+    private User user;
 
-    private User user = new User();
-
+    @CrossOrigin
     @PostMapping("/register")
     public int register(@RequestBody User user) {
 
@@ -40,7 +38,8 @@ public class RegisterController {
         return 1;
     }
 
-    @GetMapping("/verify")
+    @CrossOrigin
+    @PostMapping("/verify")
     public int verify(@RequestBody Map<String,String> map){
         User user = this.user;
         if(!ru.get(user.getUser_email()).toString().equals(map.get("code")))
