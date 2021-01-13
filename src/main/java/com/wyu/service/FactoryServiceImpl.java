@@ -23,4 +23,16 @@ public class FactoryServiceImpl implements FactoryService{
     public List<Factory> searchAll() {
         return factoryDao.findAll();
     }
+
+    @Override
+    public int deal(int id, boolean flag) {
+        int re = 0;
+        if (flag){
+            re = factoryDao.setState(id,Factory.F_state.SUCCESS);
+        }else{
+            re = factoryDao.setState(id,Factory.F_state.FAIL);
+        }
+        return re;
+    }
+
 }

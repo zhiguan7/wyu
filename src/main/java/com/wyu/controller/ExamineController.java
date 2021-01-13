@@ -8,6 +8,7 @@ import com.wyu.service.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -44,16 +45,30 @@ public class ExamineController {
     }
 
     @CrossOrigin
-    @PostMapping("/approval")
-    public int approval(){
-
+    @PostMapping("/f_approval")
+    public int f_approval(@RequestBody int id){
+        fs.deal(id,true);
         return 0;
     }
 
     @CrossOrigin
-    @PostMapping("/reject")
-    public int reject(){
+    @PostMapping("/f_reject")
+    public int f_reject(@RequestBody int id){
+        fs.deal(id,false);
+        return 0;
+    }
 
+    @CrossOrigin
+    @PostMapping("/i_approval")
+    public int i_approval(@RequestBody int id){
+        is.deal(id,true);
+        return 0;
+    }
+
+    @CrossOrigin
+    @PostMapping("/i_reject")
+    public int i_reject(@RequestBody int id){
+        is.deal(id,false);
         return 0;
     }
 }
