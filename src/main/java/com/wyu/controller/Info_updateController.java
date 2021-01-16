@@ -23,8 +23,8 @@ public class Info_updateController {
     private RedisUtil ru;
     @Autowired
     private MailSenderUtil msu;
-    @Autowired
-    private User user;
+
+    private User user = new User();
 
     @CrossOrigin
     @PostMapping("/user")

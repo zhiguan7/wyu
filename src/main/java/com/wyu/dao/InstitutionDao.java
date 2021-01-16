@@ -13,6 +13,6 @@ public interface InstitutionDao extends JpaRepository<Institution,Long> {
 
     @Modifying
     @Transactional
-    @Query("update Institution i set i.i_state = #{#state} where i.id = #{#id}")
+    @Query("update Institution i set i.i_state = :#{#state} where i.id = :#{#id}")
     int setState(@Param("id")int id, @Param("state") Institution.I_state state);
 }
