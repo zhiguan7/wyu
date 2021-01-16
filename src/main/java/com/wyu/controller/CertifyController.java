@@ -1,8 +1,10 @@
 package com.wyu.controller;
 
+import com.wyu.entity.Demand;
 import com.wyu.entity.Factory;
 import com.wyu.entity.Institution;
 import com.wyu.entity.User;
+import com.wyu.service.DemandService;
 import com.wyu.service.FactoryService;
 import com.wyu.service.InstitutionService;
 import org.apache.shiro.SecurityUtils;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 
@@ -23,25 +26,24 @@ public class CertifyController {
     @Autowired
     private InstitutionService is;
     @Autowired
-    private Factory f;
-    @Autowired
-    private Institution i;
+    private DemandService ds;
 
-    Subject subject = SecurityUtils.getSubject();
-    User u = (User) subject.getPrincipal();
-//    Factory f = new Factory();
-//    Institution i = new Institution();
+    private Factory f = new Factory();
+    private Institution i = new Institution();
+    private Demand d = new Demand();
 
     @CrossOrigin
     @PostMapping("/f_license")
     public int f_upload_1(@RequestBody MultipartFile file){
+        Subject subject = SecurityUtils.getSubject();
+        User u = (User) subject.getPrincipal();
         if (file.isEmpty()) {
             return 0;
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         String filePath = "classpath:/temporary/";
-        String path = filePath + u.getUser_id() + "_license" + suffixName;
+        String path = filePath + u.getUser_id() + "_f_license" + suffixName;
         File dest = new File(path);
         try {
             file.transferTo(dest);
@@ -56,13 +58,15 @@ public class CertifyController {
     @CrossOrigin
     @PostMapping("/f_pic")
     public int f_upload_2(@RequestBody MultipartFile file){
+        Subject subject = SecurityUtils.getSubject();
+        User u = (User) subject.getPrincipal();
         if (file.isEmpty()) {
             return 0;
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         String filePath = "classpath:/temporary/";
-        String path = filePath + u.getUser_id() + "_pic" + suffixName;
+        String path = filePath + u.getUser_id() + "_f_pic" + suffixName;
         File dest = new File(path);
         try {
             file.transferTo(dest);
@@ -77,13 +81,15 @@ public class CertifyController {
     @CrossOrigin
     @PostMapping("/i_license")
     public int i_upload_1(@RequestBody MultipartFile file){
+        Subject subject = SecurityUtils.getSubject();
+        User u = (User) subject.getPrincipal();
         if (file.isEmpty()) {
             return 0;
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         String filePath = "classpath:/temporary/";
-        String path = filePath + u.getUser_id() + "_license" + suffixName;
+        String path = filePath + u.getUser_id() + "_i_license" + suffixName;
         File dest = new File(path);
         try {
             file.transferTo(dest);
@@ -98,13 +104,15 @@ public class CertifyController {
     @CrossOrigin
     @PostMapping("/i_credentials")
     public int i_upload_2(@RequestBody MultipartFile file){
+        Subject subject = SecurityUtils.getSubject();
+        User u = (User) subject.getPrincipal();
         if (file.isEmpty()) {
             return 0;
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         String filePath = "classpath:/temporary/";
-        String path = filePath + u.getUser_id() + "_credentials" + suffixName;
+        String path = filePath + u.getUser_id() + "_i_credentials" + suffixName;
         File dest = new File(path);
         try {
             file.transferTo(dest);
@@ -119,13 +127,15 @@ public class CertifyController {
     @CrossOrigin
     @PostMapping("/i_enclosure")
     public int i_upload_3(@RequestBody MultipartFile file){
+        Subject subject = SecurityUtils.getSubject();
+        User u = (User) subject.getPrincipal();
         if (file.isEmpty()) {
             return 0;
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         String filePath = "classpath:/temporary/";
-        String path = filePath + u.getUser_id() + "_enclosure" + suffixName;
+        String path = filePath + u.getUser_id() + "_i_enclosure" + suffixName;
         File dest = new File(path);
         try {
             file.transferTo(dest);
@@ -140,17 +150,42 @@ public class CertifyController {
     @CrossOrigin
     @PostMapping("/i_pic")
     public int i_upload_4(@RequestBody MultipartFile file){
+        Subject subject = SecurityUtils.getSubject();
+        User u = (User) subject.getPrincipal();
         if (file.isEmpty()) {
             return 0;
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         String filePath = "classpath:/temporary/";
-        String path = filePath + u.getUser_id() + "_pic" + suffixName;
+        String path = filePath + u.getUser_id() + "_i_pic" + suffixName;
         File dest = new File(path);
         try {
             file.transferTo(dest);
             i.setInstitution_pic(path);
+            return 1;
+        } catch (IOException e) {
+
+        }
+        return 0;
+    }
+
+    @CrossOrigin
+    @PostMapping("/d_enclosure")
+    public int d_upload(@RequestBody MultipartFile file){
+        Subject subject = SecurityUtils.getSubject();
+        User u = (User) subject.getPrincipal();
+        if (file.isEmpty()) {
+            return 0;
+        }
+        String fileName = file.getOriginalFilename();
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        String filePath = "classpath:/temporary/";
+        String path = filePath + u.getUser_id() + "_d_enclosure" + suffixName;
+        File dest = new File(path);
+        try {
+            file.transferTo(dest);
+            d.setEnclosure(path);
             return 1;
         } catch (IOException e) {
 
@@ -177,4 +212,13 @@ public class CertifyController {
         is.add(institution);
         return 0;
     }
+
+    @CrossOrigin
+    @PostMapping("/d_apply")
+    public int d_apply(@RequestBody Demand demand){
+        demand.setEnclosure(this.d.getEnclosure());
+        ds.add(demand);
+        return 0;
+    }
+
 }

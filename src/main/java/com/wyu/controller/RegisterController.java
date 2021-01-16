@@ -18,8 +18,8 @@ public class RegisterController {
     private RedisUtil ru;
     @Autowired
     private MailSenderUtil msu;
-    @Autowired
-    private User user;
+
+    private User user = new User();
 
     @CrossOrigin
     @PostMapping("/register")
