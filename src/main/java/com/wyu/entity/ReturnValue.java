@@ -2,18 +2,16 @@ package com.wyu.entity;
 
 import java.io.Serializable;
 
-public class ReturnValue<T, S> implements Serializable {
+public class ReturnValue<T> implements Serializable {
     private static final long serialVersionUID = -1959544190118740608L;
     private int ret;
     private String msg;
     private T data1;
-    private S date2;
 
-    public ReturnValue(int ret, String msg, T data1, S date2) {
+    public ReturnValue(int ret, String msg, T data1) {
         this.ret = ret;
         this.msg = msg;
         this.data1 = data1;
-        this.date2 = date2;
     }
 
     public ReturnValue() {
@@ -31,10 +29,6 @@ public class ReturnValue<T, S> implements Serializable {
         this.data1 = data1;
     }
 
-    public void setDate2(S date2) {
-        this.date2 = date2;
-    }
-
     public int getRet() {
         return ret;
     }
@@ -47,7 +41,4 @@ public class ReturnValue<T, S> implements Serializable {
         return data1;
     }
 
-    public S getDate2() {
-        return date2;
-    }
 }

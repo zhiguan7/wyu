@@ -5,6 +5,8 @@ import com.wyu.entity.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrdersServiceImpl implements OrdersService{
 
@@ -25,5 +27,16 @@ public class OrdersServiceImpl implements OrdersService{
     @Override
     public void finish(long id) {
         ordersDao.setState(id,Orders.Payment.FINISH);
+    }
+
+    @Override
+    public List<Orders> searchAll() {
+        return ordersDao.findAll();
+    }
+
+    @Override
+    public Orders searchById(long orders_id) {
+        ordersDao.getOne(orders_id);
+        return null;
     }
 }

@@ -22,8 +22,8 @@ public class ExamineController {
     private InstitutionService is;
 
     @CrossOrigin
-    @PostMapping("/examine")
-    public ReturnValue<List<Factory>, List<Institution>> findAll(){
+    @PostMapping("/FactoryExamine")
+    public ReturnValue<List<Factory>> findAll1(){
 
         List<Factory> f = fs.searchAll();
         List<Institution> i = is.searchAll();
@@ -33,15 +33,20 @@ public class ExamineController {
             msg = "没有查询到工厂的数据";
             ret = 2;
         }
+        return new ReturnValue<List<Factory>>(ret,msg,f);
+    }
+
+    @CrossOrigin
+    @PostMapping("/InstitutionExamine")
+    public ReturnValue<List<Institution>> findAll2(){
+        List<Institution> i = is.searchAll();
+        String msg = "查询出全部";
+        int ret = 1;
         if(i==null){
             msg = "没有查询到机构的数据";
-            ret = 3;
+            ret = 2;
         }
-        if (f==null&&i==null) {
-            msg = "没有查询到数据";
-            ret = 4;
-        }
-        return new ReturnValue<List<Factory>, List<Institution>>(ret,msg,f,i);
+        return new ReturnValue<List<Institution>>(ret,msg,i);
     }
 
     @CrossOrigin
