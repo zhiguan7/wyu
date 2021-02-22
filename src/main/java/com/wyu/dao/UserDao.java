@@ -28,7 +28,6 @@ public interface UserDao extends JpaRepository<User,Long> {
             "u.user_address = case when :#{#user.user_address} is null then u.user_address else :#{#user.user_address} end , " +
             "u.user_faces = case when :#{#user.user_faces} is null then u.user_faces else :#{#user.user_faces} end , " +
             "u.user_email = case when :#{#user.user_email} is null then u.user_email else :#{#user.user_email} end , " +
-            "u.other = case when :#{#user.other} is null then u.other else :#{#user.other} end " +
-            "where u.user_id = :#{#user.user_id}")
+            "u.other = :#{#user.other} where u.user_id = :#{#user.user_id}")
     int update(@Param("user") User user);
 }

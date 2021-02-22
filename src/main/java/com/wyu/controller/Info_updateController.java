@@ -2,10 +2,7 @@ package com.wyu.controller;
 
 import com.wyu.entity.User;
 import com.wyu.service.UserService;
-import com.wyu.util.CodeUtil;
-import com.wyu.util.Encryption;
-import com.wyu.util.MailSenderUtil;
-import com.wyu.util.RedisUtil;
+import com.wyu.util.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +29,7 @@ public class Info_updateController {
         Subject subject = SecurityUtils.getSubject();
         User u = (User) subject.getPrincipal();
         user.setUser_id(u.getUser_id());
+        user.setOther(GetTimeUtil.getTime());
         if(user.getUser_email()!=null&&user.getUser_password()!=null){
             if(us.searchByEmail(user.getUser_email()) != null) return 0;
             user.setCode(CodeUtil.randomCode());
