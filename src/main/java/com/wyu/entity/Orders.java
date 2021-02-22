@@ -57,6 +57,9 @@ public class Orders implements Serializable {
     @Column(name = "completion_time")
     private int completion_time; //交易关闭时间
 
+    @Column(name = "other",length = 200)
+    private long other; //其他
+
     public enum Payment {
         UNPAID, //待支付
         PAID, //已支付

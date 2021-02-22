@@ -58,6 +58,9 @@ public class Demand implements Serializable {
     @Column(name = "demand_remarks",length = 200)
     private String demand_remarks; //订单备注
 
+    @Column(name = "other",length = 200)
+    private long other; //其他
+
     @ManyToOne(targetEntity = User.class,fetch=FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;

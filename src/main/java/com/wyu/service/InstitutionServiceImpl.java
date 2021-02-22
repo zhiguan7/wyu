@@ -1,8 +1,8 @@
 package com.wyu.service;
 
 import com.wyu.dao.InstitutionDao;
-import com.wyu.entity.Factory;
 import com.wyu.entity.Institution;
+import com.wyu.util.GetTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +30,9 @@ public class InstitutionServiceImpl implements InstitutionService{
     public int deal(int id, boolean flag) {
         int re = 0;
         if (flag){
-            re = institutionDao.setState(id, Institution.I_state.SUCCESS);
+            re = institutionDao.setState(id, Institution.I_state.SUCCESS, GetTimeUtil.getTime());
         }else{
-            re = institutionDao.setState(id, Institution.I_state.FAIL);
+            re = institutionDao.setState(id, Institution.I_state.FAIL,GetTimeUtil.getTime());
         }
         return re;
     }

@@ -12,6 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface DemandDao extends JpaRepository<Demand,Long> {
     @Modifying
     @Transactional
-    @Query("update Demand d set d.demand_state = :#{#state} where d.id = :#{#id}")
-    int setState(@Param("id")long id, @Param("state") Demand.demandState state);
+    @Query("update Demand d set d.demand_state = :#{#state}, d.other = :#{#other} where d.id = :#{#id}")
+    int setState(@Param("id")long id, @Param("state") Demand.demandState state, long other);
 }

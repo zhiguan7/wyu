@@ -50,7 +50,7 @@ public class Factory implements Serializable {
     private F_state f_state; //申请状态
 
     @Column(name = "other",length = 200,unique=true)
-    private String other; //其他
+    private long other; //其他
 
     public enum F_state{
         APPLY,

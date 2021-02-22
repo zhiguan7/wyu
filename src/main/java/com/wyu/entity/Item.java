@@ -42,6 +42,9 @@ public class Item implements Serializable {
     @Column(name = "item_remarks",length = 2000)
     private String item_remarks; //备注
 
+    @Column(name = "other",length = 200)
+    private long other; //其他
+
     @Enumerated(EnumType.ORDINAL)
     private Item_state item_state; //项目上架状态
 

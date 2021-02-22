@@ -58,7 +58,7 @@ public class Institution implements Serializable {
     private String institution_email; //工厂邮箱
 
     @Column(name = "other",length = 200)
-    private String other; //其他
+    private long other; //其他
 
     @Enumerated(EnumType.ORDINAL)
     private I_state i_state; //申请状态

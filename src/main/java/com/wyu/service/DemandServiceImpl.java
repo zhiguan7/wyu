@@ -2,6 +2,7 @@ package com.wyu.service;
 
 import com.wyu.dao.DemandDao;
 import com.wyu.entity.Demand;
+import com.wyu.util.GetTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +41,6 @@ public class DemandServiceImpl implements DemandService{
                 s = Demand.demandState.FINISH;
                 break;
         }
-        return demandDao.setState(id,s);
+        return demandDao.setState(id,s,GetTimeUtil.getTime());
     }
 }

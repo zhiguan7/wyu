@@ -3,6 +3,7 @@ package com.wyu.service;
 import com.wyu.dao.UserDao;
 import com.wyu.entity.User;
 import com.wyu.util.CodeUtil;
+import com.wyu.util.GetTimeUtil;
 import com.wyu.util.MailSenderUtil;
 import com.wyu.util.RedisUtil;
 import org.apache.shiro.SecurityUtils;
@@ -36,11 +37,13 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void add(User user) {
+        user.setOther(GetTimeUtil.getTime());
         userDao.save(user);
     }
 
     @Override
     public void update(User user) {
+        user.setOther(GetTimeUtil.getTime());
         userDao.update(user);
     }
 
