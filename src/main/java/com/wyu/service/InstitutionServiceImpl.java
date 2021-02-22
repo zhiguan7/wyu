@@ -18,6 +18,7 @@ public class InstitutionServiceImpl implements InstitutionService{
     @Override
     public void add(Institution institution) {
         institution.setI_state(Institution.I_state.APPLY);
+        institution.setOther(GetTimeUtil.getTime());
         institutionDao.save(institution);
     }
 

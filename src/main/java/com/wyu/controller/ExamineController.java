@@ -21,7 +21,6 @@ public class ExamineController {
     @Autowired
     private InstitutionService is;
 
-    @CrossOrigin
     @PostMapping("/FactoryExamine")
     public ReturnValue<List<Factory>> findAll1(){
 
@@ -36,7 +35,6 @@ public class ExamineController {
         return new ReturnValue<List<Factory>>(ret,msg,f);
     }
 
-    @CrossOrigin
     @PostMapping("/InstitutionExamine")
     public ReturnValue<List<Institution>> findAll2(){
         List<Institution> i = is.searchAll();
@@ -49,28 +47,24 @@ public class ExamineController {
         return new ReturnValue<List<Institution>>(ret,msg,i);
     }
 
-    @CrossOrigin
     @PostMapping("/f_approval")
     public int f_approval(@RequestBody int id){
         fs.deal(id,true);
         return 0;
     }
 
-    @CrossOrigin
     @PostMapping("/f_reject")
     public int f_reject(@RequestBody int id){
         fs.deal(id,false);
         return 0;
     }
 
-    @CrossOrigin
     @PostMapping("/i_approval")
     public int i_approval(@RequestBody int id){
         is.deal(id,true);
         return 0;
     }
 
-    @CrossOrigin
     @PostMapping("/i_reject")
     public int i_reject(@RequestBody int id){
         is.deal(id,false);

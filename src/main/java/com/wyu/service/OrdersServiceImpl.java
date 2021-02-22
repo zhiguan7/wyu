@@ -21,6 +21,12 @@ public class OrdersServiceImpl implements OrdersService{
         ordersDao.save(orders);
     }
 
+
+    /*
+     *  存疑: 到底是谁下的订单？
+     */
+
+
     @Override
     public void paid(long id) {
         ordersDao.setState(id,Orders.Payment.PAID,GetTimeUtil.getTime());

@@ -7,6 +7,7 @@ import com.wyu.entity.User;
 import com.wyu.service.DemandService;
 import com.wyu.service.FactoryService;
 import com.wyu.service.InstitutionService;
+import com.wyu.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,13 @@ public class CertifyController {
     private InstitutionService is;
     @Autowired
     private DemandService ds;
+    @Autowired
+    private UserService us;
 
     private Factory f = new Factory();
     private Institution i = new Institution();
     private Demand d = new Demand();
 
-    @CrossOrigin
     @PostMapping("/f_license")
     public int f_upload_1(@RequestBody MultipartFile file){
         Subject subject = SecurityUtils.getSubject();
@@ -54,7 +56,6 @@ public class CertifyController {
         return 0;
     }
 
-    @CrossOrigin
     @PostMapping("/f_pic")
     public int f_upload_2(@RequestBody MultipartFile file){
         Subject subject = SecurityUtils.getSubject();
@@ -77,7 +78,6 @@ public class CertifyController {
         return 0;
     }
 
-    @CrossOrigin
     @PostMapping("/i_license")
     public int i_upload_1(@RequestBody MultipartFile file){
         Subject subject = SecurityUtils.getSubject();
@@ -100,7 +100,6 @@ public class CertifyController {
         return 0;
     }
 
-    @CrossOrigin
     @PostMapping("/i_credentials")
     public int i_upload_2(@RequestBody MultipartFile file){
         Subject subject = SecurityUtils.getSubject();
@@ -123,7 +122,6 @@ public class CertifyController {
         return 0;
     }
 
-    @CrossOrigin
     @PostMapping("/i_enclosure")
     public int i_upload_3(@RequestBody MultipartFile file){
         Subject subject = SecurityUtils.getSubject();
@@ -146,7 +144,6 @@ public class CertifyController {
         return 0;
     }
 
-    @CrossOrigin
     @PostMapping("/i_pic")
     public int i_upload_4(@RequestBody MultipartFile file){
         Subject subject = SecurityUtils.getSubject();
@@ -169,7 +166,6 @@ public class CertifyController {
         return 0;
     }
 
-    @CrossOrigin
     @PostMapping("/d_enclosure")
     public int d_upload(@RequestBody MultipartFile file){
         Subject subject = SecurityUtils.getSubject();
@@ -192,30 +188,38 @@ public class CertifyController {
         return 0;
     }
 
-    @CrossOrigin
     @PostMapping("/f_apply")
     public int f_apply(@RequestBody Factory factory){
+        Subject subject = SecurityUtils.getSubject();
+        User u = (User) subject.getPrincipal();
         factory.setFactory_license(this.f.getFactory_license());
         factory.setFactory_pic(this.f.getFactory_pic());
+        u.setFactory(factory);
         fs.add(factory);
+        us.update(u);
         return 0;
     }
 
-    @CrossOrigin
     @PostMapping("/i_apply")
     public int i_apply(@RequestBody Institution institution){
+        Subject subject = SecurityUtils.getSubject();
+        User u = (User) subject.getPrincipal();
         institution.setInstitution_license(this.i.getInstitution_license());
         institution.setCredentials(this.i.getCredentials());
         institution.setEnclosure(this.i.getEnclosure());
         institution.setInstitution_pic(this.i.getInstitution_pic());
+        u.setInstitution(institution);
         is.add(institution);
+        us.update(u);
         return 0;
     }
 
-    @CrossOrigin
     @PostMapping("/d_apply")
     public int d_apply(@RequestBody Demand demand){
+        Subject subject = SecurityUtils.getSubject();
+        User u = (User) subject.getPrincipal();
         demand.setEnclosure(this.d.getEnclosure());
+        demand.setUser(u);
         ds.add(demand);
         return 0;
     }

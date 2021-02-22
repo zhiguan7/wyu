@@ -16,7 +16,6 @@ public class Login_LogoutController {
     @Autowired
     private UserService us;
 
-    @CrossOrigin
     @PostMapping("/login")
     public int login(@RequestBody User user) {
 
@@ -39,7 +38,6 @@ public class Login_LogoutController {
         }
     }
 
-    @CrossOrigin
     @RequestMapping("/logout")
     public int logout() {
         return 0;

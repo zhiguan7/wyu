@@ -23,7 +23,6 @@ public class Info_updateController {
 
     private User user = new User();
 
-    @CrossOrigin
     @PostMapping("/user")
     public int userUpdate(@RequestBody User user){
         Subject subject = SecurityUtils.getSubject();
@@ -57,7 +56,6 @@ public class Info_updateController {
         return 1;
     }
 
-    @CrossOrigin
     @GetMapping("/verify")
     public int verify(@RequestBody Map<String,String> map){
         User user = this.user;
@@ -73,4 +71,77 @@ public class Info_updateController {
         }
         return 1;
     }
+
+    @GetMapping("/setRoleUser")
+    public int setRole_User(@RequestBody User user){
+        User u = new User();
+        u.setUser_id(user.getUser_id());
+        u.setUser_role(User.Role.USER);
+        us.update(u);
+        return 0;
+    }
+
+    @GetMapping("/setRoleService")
+    public int setRole_Service(@RequestBody User user){
+        User u = new User();
+        u.setUser_id(user.getUser_id());
+        u.setUser_role(User.Role.CUSTOMER_SERVICE);
+        us.update(u);
+        return 0;
+    }
+
+    @GetMapping("/setRoleFactory")
+    public int setRole_Factory(@RequestBody User user){
+        User u = new User();
+        u.setUser_id(user.getUser_id());
+        u.setUser_role(User.Role.FACTORY);
+        us.update(u);
+        return 0;
+    }
+
+    @GetMapping("/setRoleIns")
+    public int setRole_Ins(@RequestBody User user){
+        User u = new User();
+        u.setUser_id(user.getUser_id());
+        u.setUser_role(User.Role.INSTITUTION);
+        us.update(u);
+        return 0;
+    }
+
+    @GetMapping("/setRoleDouble")
+    public int setRole_Double(@RequestBody User user){
+        User u = new User();
+        u.setUser_id(user.getUser_id());
+        u.setUser_role(User.Role.DOUBLE);
+        us.update(u);
+        return 0;
+    }
+
+    @GetMapping("/setStateActive")
+    public int setState_Active(@RequestBody User user){
+        User u = new User();
+        u.setUser_id(user.getUser_id());
+        u.setUser_state(User.State.ACTIVE);
+        us.update(u);
+        return 0;
+    }
+
+    @GetMapping("/setStateClose")
+    public int setState_Close(@RequestBody User user){
+        User u = new User();
+        u.setUser_id(user.getUser_id());
+        u.setUser_state(User.State.CLOSE);
+        us.update(u);
+        return 0;
+    }
+
+    @GetMapping("/setStateBan")
+    public int setState_Ban(@RequestBody User user){
+        User u = new User();
+        u.setUser_id(user.getUser_id());
+        u.setUser_state(User.State.BAN);
+        us.update(u);
+        return 0;
+    }
+
 }

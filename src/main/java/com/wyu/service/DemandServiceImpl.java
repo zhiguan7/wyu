@@ -15,6 +15,7 @@ public class DemandServiceImpl implements DemandService{
     @Override
     public void add(Demand demand) {
         demand.setDemand_state(Demand.demandState.SUBMITED);
+        demand.setOther(GetTimeUtil.getTime());
         demandDao.save(demand);
     }
 

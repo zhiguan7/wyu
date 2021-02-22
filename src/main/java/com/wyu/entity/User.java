@@ -78,12 +78,13 @@ public class User implements Serializable {
         CUSTOMER_SERVICE, //客服人员
         FACTORY, //工厂
         INSTITUTION, //机构
-        FACTORY_AND_INSTITUTION //工厂和机构双重身份
+        DOUBLE //工厂和机构双重身份
     }
 
     public enum State {
         ACTIVE, //活跃
-        CLOSE //注销
+        CLOSE, //注销
+        BAN //封禁
     }
 
     public enum Gender {

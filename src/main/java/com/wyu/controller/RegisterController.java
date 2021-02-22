@@ -21,7 +21,6 @@ public class RegisterController {
 
     private User user = new User();
 
-    @CrossOrigin
     @PostMapping("/register")
         public int register(@RequestBody User user) {
 
@@ -35,7 +34,6 @@ public class RegisterController {
             return 1;
     }
 
-    @CrossOrigin
     @PostMapping("/verify")
     public int verify(@RequestBody User user){
         if(!ru.get(user.getUser_email()).toString().equals(user.getCode()))

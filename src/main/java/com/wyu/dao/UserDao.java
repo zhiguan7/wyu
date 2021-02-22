@@ -19,8 +19,6 @@ public interface UserDao extends JpaRepository<User,Long> {
     @Query( "update User u set " +
             "u.institution = case when :#{#user.institution} is null then u.institution else :#{#user.institution} end , " +
             "u.factory = case when :#{#user.factory} is null then u.factory else :#{#user.factory} end , " +
-            "u.user_role = case when :#{#user.user_role} is null then u.user_role else :#{#user.user_role} end , " +
-            "u.user_state = case when :#{#user.user_state} is null then u.user_state else :#{#user.user_state} end , " +
             "u.user_gender = case when :#{#user.user_gender} is null then u.user_gender else :#{#user.user_gender} end , " +
             "u.user_name = case when :#{#user.user_name} is null then u.user_name else :#{#user.user_name} end , " +
             "u.user_password = case when :#{#user.user_password} is null then u.user_password else :#{#user.user_password} end , " +
