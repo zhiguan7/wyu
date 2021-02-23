@@ -36,6 +36,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User searchById(long id) {
+        return userDao.findByUserId(id);
+    }
+
+    @Override
     public void add(User user) {
         user.setOther(GetTimeUtil.getTime());
         userDao.save(user);

@@ -49,12 +49,12 @@ public class Item implements Serializable {
     private Item_state item_state; //项目上架状态
 
     @JsonIgnore
-    @OneToMany(targetEntity = Ins_item.class,mappedBy = "item",fetch=FetchType.LAZY)
-    private Set<Ins_item> Ins_items;
+    @OneToMany(targetEntity = Ins_Item.class,mappedBy = "item",fetch=FetchType.LAZY)
+    private Set<Ins_Item> Ins_items;
 
     @JsonIgnore
-    @OneToMany(targetEntity = Orders_item.class,mappedBy = "item",fetch=FetchType.LAZY)
-    private Set<Orders_item> orders_items;
+    @OneToMany(targetEntity = Orders_Item.class,mappedBy = "item",fetch=FetchType.LAZY)
+    private Set<Orders_Item> orders_items;
 
     public enum Item_state{
         ON,

@@ -30,8 +30,8 @@ public class Orders implements Serializable {
     private Institution institution;
 
     @JsonIgnore
-    @OneToMany(targetEntity = Orders_item.class,mappedBy = "orders",fetch=FetchType.LAZY)
-    private Set<Orders_item> orders_items;
+    @OneToMany(targetEntity = Orders_Item.class,mappedBy = "orders",fetch=FetchType.LAZY)
+    private Set<Orders_Item> orders_items;
 
     @Column(name = "price",length = 20)
     private float price; //项目总价格(不包含杂项费用)

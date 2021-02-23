@@ -8,6 +8,8 @@ public interface UserService {
 
     List<User> searchUserAll();
     User searchByEmail(String Email);
+    User searchById(long id);
     void add(User user);
     void update(User user);
+
 }

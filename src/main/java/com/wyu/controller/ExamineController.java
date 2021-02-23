@@ -6,7 +6,6 @@ import com.wyu.entity.ReturnValue;
 import com.wyu.service.FactoryService;
 import com.wyu.service.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +29,7 @@ public class ExamineController {
         int ret = 1;
         if(f==null){
             msg = "没有查询到工厂的数据";
-            ret = 2;
+            ret = -1;
         }
         return new ReturnValue<List<Factory>>(ret,msg,f);
     }
@@ -42,7 +41,7 @@ public class ExamineController {
         int ret = 1;
         if(i==null){
             msg = "没有查询到机构的数据";
-            ret = 2;
+            ret = -1;
         }
         return new ReturnValue<List<Institution>>(ret,msg,i);
     }

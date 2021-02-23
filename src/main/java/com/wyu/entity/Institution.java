@@ -65,8 +65,8 @@ public class Institution implements Serializable {
     private I_state i_state; //申请状态
 
     @JsonIgnore
-    @OneToMany(targetEntity = Ins_item.class,mappedBy = "institution",fetch=FetchType.LAZY)
-    private Set<Ins_item> ins_items;
+    @OneToMany(targetEntity = Ins_Item.class,mappedBy = "institution",fetch=FetchType.LAZY)
+    private Set<Ins_Item> ins_items;
 
     @JsonIgnore
     @OneToMany(targetEntity = Orders.class,mappedBy = "institution",fetch=FetchType.LAZY)

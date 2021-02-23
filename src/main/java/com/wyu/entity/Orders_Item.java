@@ -8,20 +8,20 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ins_item")
+@Table(name = "orders_item")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Ins_item {
+public class Orders_Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(targetEntity = Institution.class,fetch=FetchType.LAZY)
-    @JoinColumn(name = "institution_id")
-    private Institution institution;
+    @ManyToOne(targetEntity = Orders.class,fetch=FetchType.LAZY)
+    @JoinColumn(name = "orders_id")
+    private Orders orders;
 
     @ManyToOne(targetEntity = Item.class,fetch=FetchType.LAZY)
     @JoinColumn(name = "item_id")

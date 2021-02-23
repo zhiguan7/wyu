@@ -14,6 +14,9 @@ public interface UserDao extends JpaRepository<User,Long> {
     @Query("select u from User u where u.user_email = ?1")
     User findByUserEmail(String email);
 
+    @Query("select u from User u where u.user_id = ?1")
+    User findByUserId(long user_id);
+
     @Modifying
     @Transactional
     @Query( "update User u set " +
