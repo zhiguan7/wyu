@@ -15,17 +15,11 @@ public class OrdersServiceImpl implements OrdersService{
     private OrdersDao ordersDao;
 
     @Override
-    public void add(Orders orders) {
+    public Orders add(Orders orders) {
         orders.setPayment(Orders.Payment.UNPAID);
         orders.setOther(GetTimeUtil.getTime());
-        ordersDao.save(orders);
+        return ordersDao.save(orders);
     }
-
-
-    /*
-     *  存疑: 到底是谁下的订单？
-     */
-
 
     @Override
     public void paid(long id) {

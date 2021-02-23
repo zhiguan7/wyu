@@ -1,11 +1,15 @@
 package com.wyu.controller;
 
-import com.wyu.entity.Orders;
-import com.wyu.entity.ReturnValue;
+import com.wyu.entity.*;
 import com.wyu.service.OrdersService;
+import com.wyu.service.Orders_ItemService;
+import com.wyu.service.UserService;
+import com.wyu.util.GetTimeUtil;
+import com.wyu.util.GetUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -14,10 +18,25 @@ public class OrdersController {
 
     @Autowired
     private OrdersService os;
+    @Autowired
+    private UserService us;
+    @Autowired
+    private Orders_ItemService ois;
 
     @PostMapping("/add")
-    public int addOrder(@RequestBody Orders orders){
-        os.add(orders);
+    public int addOrder(@RequestBody Orders orders, @RequestBody User user, @RequestBody List<Item> items){
+        Orders_Item oi = new Orders_Item();
+        orders.setInstitution(us.searchById(GetUserUtil.getId()).getInstitution());
+        orders.setUser(us.searchById(user.getUser_id()));
+        Orders o = os.add(orders);
+        oi.setOrders(o);
+        oi.setOther(GetTimeUtil.getTime());
+        Iterator<Item> it = (Iterator<Item>) items.iterator();
+        while (it.hasNext()){
+            Item i = it.next();
+            oi.setItem(i);
+            ois.add(oi);
+        }
         return 0;
     }
 

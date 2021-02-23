@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OrdersService {
 
-   void add(Orders orders);
+   Orders add(Orders orders);
    void paid(long id);
    void finish(long id);
    List<Orders> searchAll();

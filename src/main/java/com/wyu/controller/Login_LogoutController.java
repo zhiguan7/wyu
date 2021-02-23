@@ -1,5 +1,6 @@
 package com.wyu.controller;
 
+import com.wyu.entity.ReturnValue;
 import com.wyu.entity.User;
 import com.wyu.service.UserService;
 import org.apache.shiro.SecurityUtils;

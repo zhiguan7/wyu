@@ -92,4 +92,11 @@ public class User implements Serializable {
         WOMAN, //女
         OTHER //未知
     }
+
+    public User(long user_id,String user_email,String user_name,Role user_role){
+        this.user_id = user_id;
+        this.user_email = user_email;
+        this.user_name = user_name;
+        this.user_role = user_role;
+    }
 }
