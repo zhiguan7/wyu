@@ -1,9 +1,6 @@
 package com.wyu.controller;
 
-import com.wyu.entity.Demand;
-import com.wyu.entity.Factory;
-import com.wyu.entity.Institution;
-import com.wyu.entity.User;
+import com.wyu.entity.*;
 import com.wyu.service.DemandService;
 import com.wyu.service.FactoryService;
 import com.wyu.service.InstitutionService;
@@ -30,15 +27,14 @@ public class CertifyController {
     private DemandService ds;
     @Autowired
     private UserService us;
-
     private Factory f = new Factory();
     private Institution i = new Institution();
     private Demand d = new Demand();
 
     @PostMapping("/f_license")
-    public int f_upload_1(@RequestBody MultipartFile file){
+    public ReturnValue<Object> f_upload_1(@RequestBody MultipartFile file){
         if (file.isEmpty()) {
-            return 0;
+            return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
@@ -48,17 +44,17 @@ public class CertifyController {
         try {
             file.transferTo(dest);
             f.setFactory_license(path);
-            return 1;
+            return new ReturnValue<Object>(1,"上传成功",null);
         } catch (IOException e) {
 
         }
-        return 0;
+        return null;
     }
 
     @PostMapping("/f_pic")
-    public int f_upload_2(@RequestBody MultipartFile file){
+    public ReturnValue<Object> f_upload_2(@RequestBody MultipartFile file){
         if (file.isEmpty()) {
-            return 0;
+            return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
@@ -68,17 +64,17 @@ public class CertifyController {
         try {
             file.transferTo(dest);
             f.setFactory_pic(path);
-            return 1;
+            return new ReturnValue<Object>(1,"上传成功",null);
         } catch (IOException e) {
 
         }
-        return 0;
+        return null;
     }
 
     @PostMapping("/i_license")
-    public int i_upload_1(@RequestBody MultipartFile file){
+    public ReturnValue<Object> i_upload_1(@RequestBody MultipartFile file){
         if (file.isEmpty()) {
-            return 0;
+            return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
@@ -88,17 +84,17 @@ public class CertifyController {
         try {
             file.transferTo(dest);
             i.setInstitution_license(path);
-            return 1;
+            return new ReturnValue<Object>(1,"上传成功",null);
         } catch (IOException e) {
 
         }
-        return 0;
+        return null;
     }
 
     @PostMapping("/i_credentials")
-    public int i_upload_2(@RequestBody MultipartFile file){
+    public ReturnValue<Object> i_upload_2(@RequestBody MultipartFile file){
         if (file.isEmpty()) {
-            return 0;
+            return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
@@ -108,17 +104,17 @@ public class CertifyController {
         try {
             file.transferTo(dest);
             i.setCredentials(path);
-            return 1;
+            return new ReturnValue<Object>(1,"上传成功",null);
         } catch (IOException e) {
 
         }
-        return 0;
+        return null;
     }
 
     @PostMapping("/i_enclosure")
-    public int i_upload_3(@RequestBody MultipartFile file){
+    public ReturnValue<Object> i_upload_3(@RequestBody MultipartFile file){
         if (file.isEmpty()) {
-            return 0;
+            return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
@@ -128,17 +124,17 @@ public class CertifyController {
         try {
             file.transferTo(dest);
             i.setEnclosure(path);
-            return 1;
+            return new ReturnValue<Object>(1,"上传成功",null);
         } catch (IOException e) {
 
         }
-        return 0;
+        return null;
     }
 
     @PostMapping("/i_pic")
-    public int i_upload_4(@RequestBody MultipartFile file){
+    public ReturnValue<Object> i_upload_4(@RequestBody MultipartFile file){
         if (file.isEmpty()) {
-            return 0;
+            return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
@@ -148,17 +144,17 @@ public class CertifyController {
         try {
             file.transferTo(dest);
             i.setInstitution_pic(path);
-            return 1;
+            return new ReturnValue<Object>(1,"上传成功",null);
         } catch (IOException e) {
 
         }
-        return 0;
+        return null;
     }
 
     @PostMapping("/d_enclosure")
-    public int d_upload(@RequestBody MultipartFile file){
+    public ReturnValue<Object> d_upload(@RequestBody MultipartFile file){
         if (file.isEmpty()) {
-            return 0;
+            return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
@@ -168,27 +164,31 @@ public class CertifyController {
         try {
             file.transferTo(dest);
             d.setEnclosure(path);
-            return 1;
+            return new ReturnValue<Object>(1,"上传成功",null);
         } catch (IOException e) {
 
         }
-        return 0;
+        return null;
     }
 
     @PostMapping("/f_apply")
-    public int f_apply(@RequestBody Factory factory){
+    public ReturnValue<Object> f_apply(@RequestBody Factory factory){
         User u = new User();
         u.setUser_id(GetUserUtil.getId());
         factory.setFactory_license(this.f.getFactory_license());
         factory.setFactory_pic(this.f.getFactory_pic());
         u.setFactory(factory);
-        fs.add(factory);
-        us.update(u);
-        return 0;
+        try {
+            fs.add(factory);
+            us.update(u);
+        } catch (Exception e) {
+            return new ReturnValue<Object>(-1,"提交申请失败",null);
+        }
+        return new ReturnValue<Object>(1,"提交申请成功",null);
     }
 
     @PostMapping("/i_apply")
-    public int i_apply(@RequestBody Institution institution){
+    public ReturnValue<Object> i_apply(@RequestBody Institution institution){
         User u = new User();
         u.setUser_id(GetUserUtil.getId());
         institution.setInstitution_license(this.i.getInstitution_license());
@@ -196,19 +196,28 @@ public class CertifyController {
         institution.setEnclosure(this.i.getEnclosure());
         institution.setInstitution_pic(this.i.getInstitution_pic());
         u.setInstitution(institution);
-        is.add(institution);
-        us.update(u);
-        return 0;
+
+        try {
+            is.add(institution);
+            us.update(u);
+        } catch (Exception e) {
+            return new ReturnValue<Object>(-1,"提交申请失败",null);
+        }
+        return new ReturnValue<Object>(1,"提交申请成功",null);
     }
 
     @PostMapping("/d_apply")
-    public int d_apply(@RequestBody Demand demand){
+    public ReturnValue<Object> d_apply(@RequestBody Demand demand){
         Subject subject = SecurityUtils.getSubject();
         User u = (User) subject.getPrincipal();
         demand.setEnclosure(this.d.getEnclosure());
         demand.setUser(u);
-        ds.add(demand);
-        return 0;
+        try {
+            ds.add(demand);
+        } catch (Exception e) {
+            return new ReturnValue<Object>(-1,"需求发布失败",null);
+        }
+        return new ReturnValue<Object>(1,"需求发布成功",null);
     }
 
 }

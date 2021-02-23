@@ -1,5 +1,6 @@
 package com.wyu.controller;
 
+import com.wyu.entity.ReturnValue;
 import com.wyu.entity.User;
 import com.wyu.service.UserService;
 import com.wyu.util.*;
@@ -24,19 +25,19 @@ public class Info_updateController {
     private User user = new User();
 
     @PostMapping("/user")
-    public int userUpdate(@RequestBody User user){
+    public ReturnValue<Object> userUpdate(@RequestBody User user){
         Subject subject = SecurityUtils.getSubject();
         User u = (User) subject.getPrincipal();
         user.setUser_id(u.getUser_id());
         user.setOther(GetTimeUtil.getTime());
         if(user.getUser_email()!=null&&user.getUser_password()!=null){
-            if(us.searchByEmail(user.getUser_email()) != null) return 0;
+            if(us.searchByEmail(user.getUser_email()) != null) return new ReturnValue<Object>(-1,"邮箱已被注册",null);
             user.setCode(CodeUtil.randomCode());
             ru.set(user.getUser_email(), user.getCode(), 5 * 60);
             msu.send(user.getUser_email(), user.getCode());
         }else{
             if(user.getUser_email()!=null){
-                if(us.searchByEmail(user.getUser_email()) != null) return 0;
+                if(us.searchByEmail(user.getUser_email()) != null) return new ReturnValue<Object>(-1,"邮箱已被注册",null);
                 user.setCode(CodeUtil.randomCode());
                 ru.set(user.getUser_email(), user.getCode(), 5 * 60);
                 msu.send(user.getUser_email(), user.getCode());
@@ -47,101 +48,128 @@ public class Info_updateController {
                     ru.set(u.getUser_email(), user.getCode(), 5 * 60);
                     msu.send(u.getUser_email(), user.getCode());
                 }else{
-                    us.update(user);
-                    return 2;
+                    int i = us.update(u);
+                    if(i==0){
+                        return new ReturnValue<Object>(-1,"修改失败",null);
+                    }
+                    return new ReturnValue<Object>(1,"修改成功",null);
                 }
             }
         }
         this.user = user;
-        return 1;
+        return new ReturnValue<Object>(2,"等待验证码",null);
     }
 
     @GetMapping("/verify")
-    public int verify(@RequestBody Map<String,String> map){
+    public ReturnValue<Object> verify(@RequestBody Map<String,String> map){
         User user = this.user;
         if(!ru.get(user.getUser_email()).toString().equals(map.get("code")))
-            return 0;
+            return new ReturnValue<Object>(-1,"验证码不符",null);
         if (user.getUser_password()!=null){
             user.setUser_password(Encryption.encipher(user.getUser_email(),user.getUser_password()));
         }
         try {
             us.update(user);
         } catch (Exception e) {
-            return -1;
+            return new ReturnValue<Object>(-2,"修改失败",null);
         }
-        return 1;
+        return new ReturnValue<Object>(1,"修改成功",null);
     }
 
     @GetMapping("/setRoleUser")
-    public int setRole_User(@RequestBody User user){
+    public ReturnValue<Object> setRole_User(@RequestBody User user){
         User u = new User();
         u.setUser_id(user.getUser_id());
         u.setUser_role(User.Role.USER);
-        us.update(u);
-        return 0;
+        int i = us.change(u);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"修改成功",null);
     }
 
     @GetMapping("/setRoleService")
-    public int setRole_Service(@RequestBody User user){
+    public ReturnValue<Object> setRole_Service(@RequestBody User user){
         User u = new User();
         u.setUser_id(user.getUser_id());
         u.setUser_role(User.Role.CUSTOMER_SERVICE);
-        us.update(u);
-        return 0;
+        int i = us.change(u);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"修改成功",null);
     }
 
     @GetMapping("/setRoleFactory")
-    public int setRole_Factory(@RequestBody User user){
+    public ReturnValue<Object> setRole_Factory(@RequestBody User user){
         User u = new User();
         u.setUser_id(user.getUser_id());
         u.setUser_role(User.Role.FACTORY);
-        us.update(u);
-        return 0;
+        int i = us.change(u);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"修改成功",null);
     }
 
     @GetMapping("/setRoleIns")
-    public int setRole_Ins(@RequestBody User user){
+    public ReturnValue<Object> setRole_Ins(@RequestBody User user){
         User u = new User();
         u.setUser_id(user.getUser_id());
         u.setUser_role(User.Role.INSTITUTION);
-        us.update(u);
-        return 0;
+        int i = us.change(u);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"修改成功",null);
     }
 
     @GetMapping("/setRoleDouble")
-    public int setRole_Double(@RequestBody User user){
+    public ReturnValue<Object> setRole_Double(@RequestBody User user){
         User u = new User();
         u.setUser_id(user.getUser_id());
         u.setUser_role(User.Role.DOUBLE);
-        us.update(u);
-        return 0;
+        int i = us.change(u);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"修改成功",null);
     }
 
     @GetMapping("/setStateActive")
-    public int setState_Active(@RequestBody User user){
+    public ReturnValue<Object> setState_Active(@RequestBody User user){
         User u = new User();
         u.setUser_id(user.getUser_id());
         u.setUser_state(User.State.ACTIVE);
-        us.update(u);
-        return 0;
+        int i = us.change(u);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"修改成功",null);
     }
 
     @GetMapping("/setStateClose")
-    public int setState_Close(@RequestBody User user){
+    public ReturnValue<Object> setState_Close(@RequestBody User user){
         User u = new User();
         u.setUser_id(user.getUser_id());
         u.setUser_state(User.State.CLOSE);
-        us.update(u);
-        return 0;
+        int i = us.change(u);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"修改成功",null);
     }
 
     @GetMapping("/setStateBan")
-    public int setState_Ban(@RequestBody User user){
+    public ReturnValue<Object> setState_Ban(@RequestBody User user){
         User u = new User();
         u.setUser_id(user.getUser_id());
         u.setUser_state(User.State.BAN);
-        us.update(u);
-        return 0;
+        int i = us.change(u);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"修改成功",null);
     }
 
 }

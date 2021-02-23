@@ -1,5 +1,6 @@
 package com.wyu.controller;
 
+import com.wyu.entity.ReturnValue;
 import com.wyu.util.Encryption;
 import com.wyu.entity.User;
 import com.wyu.service.UserService;
@@ -18,32 +19,31 @@ public class RegisterController {
     private RedisUtil ru;
     @Autowired
     private MailSenderUtil msu;
-
     private User user = new User();
 
     @PostMapping("/register")
-        public int register(@RequestBody User user) {
+        public ReturnValue<Object> register(@RequestBody User user) {
 
             if (us.searchByEmail(user.getUser_email()) != null)
-                return 0;
+                return new ReturnValue<Object>(-1,"邮箱已被注册",null);
             else {
                 user.setCode(CodeUtil.randomCode());
                 ru.set(user.getUser_email(), user.getCode(), 5 * 60);
                 msu.send(user.getUser_email(), user.getCode());
             }
-            return 1;
+            return new ReturnValue<Object>(1,"邮箱验证码已发送",null);
     }
 
     @PostMapping("/verify")
-    public int verify(@RequestBody User user){
+    public ReturnValue<Object> verify(@RequestBody User user){
         if(!ru.get(user.getUser_email()).toString().equals(user.getCode()))
-            return 0;
+            return new ReturnValue<Object>(-1,"验证码不符",null);
         user.setUser_password(Encryption.encipher(user.getUser_email(),user.getUser_password()));
         try {
             us.add(user);
         } catch (Exception e) {
-            return -1;
+            return new ReturnValue<Object>(-2,"注册失败",null);
         }
-        return 1;
+        return new ReturnValue<Object>(1,"注册成功",null);
     }
 }

@@ -24,32 +24,42 @@ public class OrdersController {
     private Orders_ItemService ois;
 
     @PostMapping("/add")
-    public int addOrder(@RequestBody Orders orders, @RequestBody User user, @RequestBody List<Item> items){
-        Orders_Item oi = new Orders_Item();
-        orders.setInstitution(us.searchById(GetUserUtil.getId()).getInstitution());
-        orders.setUser(us.searchById(user.getUser_id()));
-        Orders o = os.add(orders);
-        oi.setOrders(o);
-        oi.setOther(GetTimeUtil.getTime());
-        Iterator<Item> it = (Iterator<Item>) items.iterator();
-        while (it.hasNext()){
-            Item i = it.next();
-            oi.setItem(i);
-            ois.add(oi);
+    public ReturnValue<Object> addOrder(@RequestBody Orders orders, @RequestBody User user, @RequestBody List<Item> items){
+        try {
+            Orders_Item oi = new Orders_Item();
+            orders.setInstitution(us.searchById(GetUserUtil.getId()).getInstitution());
+            orders.setUser(us.searchById(user.getUser_id()));
+            Orders o = os.add(orders);
+            oi.setOrders(o);
+            oi.setOther(GetTimeUtil.getTime());
+            Iterator<Item> it = (Iterator<Item>) items.iterator();
+            while (it.hasNext()){
+                Item i = it.next();
+                oi.setItem(i);
+                ois.add(oi);
+            }
+        } catch (Exception e) {
+            return new ReturnValue<Object>(-1,"订单创建失败",null);
         }
-        return 0;
+        return new ReturnValue<Object>(1,"订单创建成功",null);
     }
 
     @PostMapping("/paid")
-    public int paid(@RequestBody Orders orders){
-        os.paid(orders.getOrders_id());
-        return 0;
+    public ReturnValue<Object> paid(@RequestBody Orders orders){
+        int i = os.paid(orders.getOrders_id());
+        if(i==0){
+            return new ReturnValue<Object>(-1,"付款失败",null);
+        }
+        return new ReturnValue<Object>(1,"付款成功",null);
     }
 
     @PostMapping("/finish")
-    public int finish(@RequestBody Orders orders){
-        os.finish(orders.getOrders_id());
-        return 0;
+    public ReturnValue<Object> finish(@RequestBody Orders orders){
+        int i = os.finish(orders.getOrders_id());
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"订单完成",null);
     }
 
     @PostMapping("/findAll")

@@ -7,8 +7,8 @@ import java.util.List;
 public interface OrdersService {
 
    Orders add(Orders orders);
-   void paid(long id);
-   void finish(long id);
+   int paid(long id);
+   int finish(long id);
    List<Orders> searchAll();
    Orders searchById(long orders_id);
 }

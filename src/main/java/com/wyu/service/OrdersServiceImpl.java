@@ -22,13 +22,13 @@ public class OrdersServiceImpl implements OrdersService{
     }
 
     @Override
-    public void paid(long id) {
-        ordersDao.setState(id,Orders.Payment.PAID,GetTimeUtil.getTime());
+    public int paid(long id) {
+        return ordersDao.setState(id,Orders.Payment.PAID,GetTimeUtil.getTime());
     }
 
     @Override
-    public void finish(long id) {
-        ordersDao.setState(id,Orders.Payment.FINISH,GetTimeUtil.getTime());
+    public int finish(long id) {
+        return ordersDao.setState(id,Orders.Payment.FINISH,GetTimeUtil.getTime());
     }
 
     @Override

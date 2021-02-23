@@ -43,15 +43,22 @@ public class UserServiceImpl implements UserService{
     @Override
     public void add(User user) {
         user.setOther(GetTimeUtil.getTime());
+        user.setUser_role(User.Role.USER);
+        user.setUser_state(User.State.ACTIVE);
         userDao.save(user);
     }
 
     @Override
-    public void update(User user) {
+    public int update(User user) {
         user.setOther(GetTimeUtil.getTime());
-        userDao.update(user);
+        return userDao.update(user);
     }
 
+    @Override
+    public int change(User user) {
+        user.setOther(GetTimeUtil.getTime());
+        return userDao.change(user);
+    }
 
 
 }

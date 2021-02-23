@@ -18,7 +18,7 @@ public class Login_LogoutController {
     private UserService us;
 
     @PostMapping("/login")
-    public int login(@RequestBody User user) {
+    public ReturnValue<User> login(@RequestBody User user) {
 
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUser_email(),user.getUser_password());
@@ -28,19 +28,19 @@ public class Login_LogoutController {
             try {
                 currentUser.login(token);
                 User u=(User)SecurityUtils.getSubject().getPrincipal();
-                return 1;
+                return  new ReturnValue<User>(1,"登陆成功",new User(u.getUser_id(),u.getUser_email(),u.getUser_name(),u.getUser_role()));
             } catch (UnknownAccountException e) {
-                return -1; //用户名不存在
+                return new ReturnValue<User>(-1,"用户名不存在",null);
             } catch (IncorrectCredentialsException e) {
-                return -2; //密码错误
+                return new ReturnValue<User>(-1,"密码错误",null);
             }
         }else {
-            return 0; //用户已登陆
+            return new ReturnValue<User>(-1,"用户已登陆",null);
         }
     }
 
     @RequestMapping("/logout")
-    public int logout() {
-        return 0;
+    public ReturnValue<Object> logout() {
+        return new ReturnValue<Object>(1,"退出登陆",null);
     }
 }

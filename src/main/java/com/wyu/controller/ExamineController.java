@@ -47,26 +47,38 @@ public class ExamineController {
     }
 
     @PostMapping("/f_approval")
-    public int f_approval(@RequestBody int id){
-        fs.deal(id,true);
-        return 0;
+    public ReturnValue<Object> f_approval(@RequestBody int id){
+        int i = fs.deal(id,true);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"申请成功",null);
     }
 
     @PostMapping("/f_reject")
-    public int f_reject(@RequestBody int id){
-        fs.deal(id,false);
-        return 0;
+    public ReturnValue<Object> f_reject(@RequestBody int id){
+        int i = fs.deal(id,false);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"申请驳回",null);
     }
 
     @PostMapping("/i_approval")
-    public int i_approval(@RequestBody int id){
-        is.deal(id,true);
-        return 0;
+    public ReturnValue<Object> i_approval(@RequestBody int id){
+        int i = is.deal(id,true);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"申请成功",null);
     }
 
     @PostMapping("/i_reject")
-    public int i_reject(@RequestBody int id){
-        is.deal(id,false);
-        return 0;
+    public ReturnValue<Object> i_reject(@RequestBody int id){
+        int i = is.deal(id,false);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"申请驳回",null);
     }
 }

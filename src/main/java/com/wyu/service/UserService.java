@@ -10,6 +10,7 @@ public interface UserService {
     User searchByEmail(String Email);
     User searchById(long id);
     void add(User user);
-    void update(User user);
+    int update(User user);
+    int change(User user);
 
 }
