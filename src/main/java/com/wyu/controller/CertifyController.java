@@ -27,6 +27,7 @@ public class CertifyController {
     private DemandService ds;
     @Autowired
     private UserService us;
+
     private Factory f = new Factory();
     private Institution i = new Institution();
     private Demand d = new Demand();

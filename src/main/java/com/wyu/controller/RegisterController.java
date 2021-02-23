@@ -19,7 +19,6 @@ public class RegisterController {
     private RedisUtil ru;
     @Autowired
     private MailSenderUtil msu;
-    private User user = new User();
 
     @PostMapping("/register")
         public ReturnValue<Object> register(@RequestBody User user) {

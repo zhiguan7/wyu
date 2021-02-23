@@ -22,8 +22,6 @@ public class Info_updateController {
     @Autowired
     private MailSenderUtil msu;
 
-    private User user = new User();
-
     @PostMapping("/user")
     public ReturnValue<Object> userUpdate(@RequestBody User user){
         Subject subject = SecurityUtils.getSubject();
@@ -56,14 +54,12 @@ public class Info_updateController {
                 }
             }
         }
-        this.user = user;
         return new ReturnValue<Object>(2,"等待验证码",null);
     }
 
     @GetMapping("/verify")
-    public ReturnValue<Object> verify(@RequestBody Map<String,String> map){
-        User user = this.user;
-        if(!ru.get(user.getUser_email()).toString().equals(map.get("code")))
+    public ReturnValue<Object> verify(@RequestBody User user){
+        if(!ru.get(user.getUser_email()).toString().equals(user.getCode()))
             return new ReturnValue<Object>(-1,"验证码不符",null);
         if (user.getUser_password()!=null){
             user.setUser_password(Encryption.encipher(user.getUser_email(),user.getUser_password()));
