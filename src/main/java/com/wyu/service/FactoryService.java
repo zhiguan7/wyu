@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface FactoryService {
     void add(Factory factory);
+    int update(Factory factory);
     List<Factory> searchAll();
     int deal(int id, boolean flag);
 }

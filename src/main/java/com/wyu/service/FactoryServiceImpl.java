@@ -22,6 +22,12 @@ public class FactoryServiceImpl implements FactoryService{
     }
 
     @Override
+    public int update(Factory factory) {
+        factory.setOther(GetTimeUtil.getTime());
+        return factoryDao.update(factory);
+    }
+
+    @Override
     public List<Factory> searchAll() {
         return factoryDao.findAll();
     }

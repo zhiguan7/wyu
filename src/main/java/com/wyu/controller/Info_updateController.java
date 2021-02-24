@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/update")
+@RequestMapping("/info/update")
 public class Info_updateController {
 
     @Autowired

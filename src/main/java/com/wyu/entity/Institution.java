@@ -55,7 +55,7 @@ public class Institution implements Serializable {
     private String contacts_tel; //机构电话
 
     @Column(name = "institution_email",length = 200)
-    private String institution_email; //工厂邮箱
+    private String institution_email; //机构邮箱
 
     @Column(name = "other",length = 200)
     private long other; //其他

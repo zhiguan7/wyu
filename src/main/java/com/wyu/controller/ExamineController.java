@@ -8,11 +8,13 @@ import com.wyu.service.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("Examine")
 public class ExamineController {
 
     @Autowired
@@ -20,7 +22,7 @@ public class ExamineController {
     @Autowired
     private InstitutionService is;
 
-    @PostMapping("/FactoryExamine")
+    @PostMapping("/Factory")
     public ReturnValue<List<Factory>> findAll1(){
 
         List<Factory> f = fs.searchAll();
@@ -34,7 +36,7 @@ public class ExamineController {
         return new ReturnValue<List<Factory>>(ret,msg,f);
     }
 
-    @PostMapping("/InstitutionExamine")
+    @PostMapping("/Institution")
     public ReturnValue<List<Institution>> findAll2(){
         List<Institution> i = is.searchAll();
         String msg = "查询出全部";

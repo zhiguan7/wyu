@@ -23,6 +23,17 @@ public class InstitutionServiceImpl implements InstitutionService{
     }
 
     @Override
+    public int update(Institution institution) {
+        institution.setOther(GetTimeUtil.getTime());
+        return institutionDao.update(institution);
+    }
+
+    @Override
+    public int update_qualifications(Institution institution) {
+        return institutionDao.setQualifications(institution.getInstitution_id(),institution.getQualifications(),GetTimeUtil.getTime());
+    }
+
+    @Override
     public List<Institution> searchAll() {
         return institutionDao.findAll();
     }
