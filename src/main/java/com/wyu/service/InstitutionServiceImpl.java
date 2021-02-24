@@ -2,6 +2,7 @@ package com.wyu.service;
 
 import com.wyu.dao.InstitutionDao;
 import com.wyu.entity.Institution;
+import com.wyu.util.GetInfoUtil;
 import com.wyu.util.GetTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class InstitutionServiceImpl implements InstitutionService{
 
     @Override
     public int update(Institution institution) {
+        institution.setInstitution_id(GetInfoUtil.getInsId());
         institution.setOther(GetTimeUtil.getTime());
         return institutionDao.update(institution);
     }

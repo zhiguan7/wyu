@@ -7,6 +7,7 @@ import java.util.List;
 public interface OrdersService {
 
    Orders add(Orders orders);
+   int close(long id);
    int paid(long id);
    int finish(long id);
    int update(Orders orders);

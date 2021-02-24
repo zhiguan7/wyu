@@ -8,7 +8,7 @@ import com.wyu.service.Ins_ItemService;
 import com.wyu.service.ItemService;
 import com.wyu.service.UserService;
 import com.wyu.util.GetTimeUtil;
-import com.wyu.util.GetUserUtil;
+import com.wyu.util.GetInfoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +30,7 @@ public class ItemController {
         try {
             Ins_Item ii = new Ins_Item();
             Item i = is.add(item);
-            User user = us.searchById(GetUserUtil.getId());
+            User user = us.searchById(GetInfoUtil.getUserId());
             ii.setInstitution(user.getInstitution());
             ii.setItem(i);
             ii.setOther(GetTimeUtil.getTime());
@@ -61,6 +61,7 @@ public class ItemController {
 
     @RequestMapping("/update")
     public ReturnValue<Object> update(Item item){
+        if(GetInfoUtil.checkingItem(item)) return new ReturnValue<Object>(-1,"修改失败",null);
         int i = is.update(item);
         if(i==0){
             return new ReturnValue<Object>(-1,"修改失败",null);

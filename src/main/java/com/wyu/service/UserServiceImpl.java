@@ -2,12 +2,7 @@ package com.wyu.service;
 
 import com.wyu.dao.UserDao;
 import com.wyu.entity.User;
-import com.wyu.util.CodeUtil;
-import com.wyu.util.GetTimeUtil;
-import com.wyu.util.MailSenderUtil;
-import com.wyu.util.RedisUtil;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
+import com.wyu.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +45,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public int update(User user) {
+        user.setUser_id(GetInfoUtil.getUserId());
         user.setOther(GetTimeUtil.getTime());
         return userDao.update(user);
     }

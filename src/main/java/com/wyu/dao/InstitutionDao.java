@@ -18,8 +18,8 @@ public interface InstitutionDao extends JpaRepository<Institution,Long> {
 
     @Modifying
     @Transactional
-    @Query("update Institution i set i.qualifications = :#{#state},i.other = :#{#other} where i.institution_id = :#{#id}")
-    int setQualifications(@Param("id")long id, @Param("qualifications") String qualifications, long other);
+    @Query("update Institution i set i.qualifications = :#{#qualifications},i.other = :#{#other} where i.institution_id = :#{#id}")
+    int setQualifications(@Param("id")long id, @Param("qualifications")String qualifications, long other);
 
     @Modifying
     @Transactional

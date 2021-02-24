@@ -61,6 +61,7 @@ public class Orders implements Serializable {
     private long other; //其他
 
     public enum Payment {
+        CLOSE, //关闭订单
         UNPAID, //待支付
         PAID, //已支付
         FINISH //已完成

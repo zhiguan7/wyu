@@ -16,6 +16,9 @@ public interface OrdersDao extends JpaRepository<Orders,Long> {
     @Query("update Orders o set o.payment = :#{#payment},o.other = :#{#other} where o.orders_id = :#{#id}")
     int setState(@Param("id")long id, @Param("payment") Orders.Payment payment, @Param("other")long other);
 
+    @Query("select o from Orders o where o.orders_id = ?1")
+    Orders findInsById(long id);
+
     @Modifying
     @Transactional
     @Query( "update Orders o set " +

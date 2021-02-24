@@ -5,7 +5,7 @@ import com.wyu.service.OrdersService;
 import com.wyu.service.Orders_ItemService;
 import com.wyu.service.UserService;
 import com.wyu.util.GetTimeUtil;
-import com.wyu.util.GetUserUtil;
+import com.wyu.util.GetInfoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +27,7 @@ public class OrdersController {
     public ReturnValue<Object> addOrder(@RequestBody Orders orders, @RequestBody User user, @RequestBody List<Item> items){
         try {
             Orders_Item oi = new Orders_Item();
-            orders.setInstitution(us.searchById(GetUserUtil.getId()).getInstitution());
+            orders.setInstitution(us.searchById(GetInfoUtil.getUserId()).getInstitution());
             orders.setUser(us.searchById(user.getUser_id()));
             Orders o = os.add(orders);
             oi.setOrders(o);
@@ -46,11 +46,21 @@ public class OrdersController {
 
     @RequestMapping("/update")
     public ReturnValue<Object>update(@RequestBody Orders orders){
+        if(GetInfoUtil.checkingOrders(orders)) return new ReturnValue<Object>(-1,"修改失败",null);
         int i = os.update(orders);
         if(i==0){
             return new ReturnValue<Object>(-1,"修改失败",null);
         }
         return new ReturnValue<Object>(1,"修改成功",null);
+    }
+
+    @PostMapping("/close")
+    public ReturnValue<Object> close(@RequestBody Orders orders){
+        int i = os.close(orders.getOrders_id());
+        if(i==0){
+            return new ReturnValue<Object>(-1,"关闭失败",null);
+        }
+        return new ReturnValue<Object>(1,"取消订单成功",null);
     }
 
     @PostMapping("/paid")

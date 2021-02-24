@@ -22,6 +22,11 @@ public class OrdersServiceImpl implements OrdersService{
     }
 
     @Override
+    public int close(long id) {
+        return ordersDao.setState(id,Orders.Payment.CLOSE,GetTimeUtil.getTime());
+    }
+
+    @Override
     public int paid(long id) {
         return ordersDao.setState(id,Orders.Payment.PAID,GetTimeUtil.getTime());
     }

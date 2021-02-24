@@ -2,6 +2,7 @@ package com.wyu.service;
 
 import com.wyu.dao.FactoryDao;
 import com.wyu.entity.Factory;
+import com.wyu.util.GetInfoUtil;
 import com.wyu.util.GetTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class FactoryServiceImpl implements FactoryService{
 
     @Override
     public int update(Factory factory) {
+        factory.setFactory_id(GetInfoUtil.getFactoryId());
         factory.setOther(GetTimeUtil.getTime());
         return factoryDao.update(factory);
     }
