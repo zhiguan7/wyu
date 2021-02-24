@@ -66,6 +66,7 @@ public class Demand implements Serializable {
     private User user;
 
     public enum demandState {
+        WITHDRAW, //撤回
         SUBMIT, //待提交
         SUBMITED, //已提交
         AUDIT, //待审核

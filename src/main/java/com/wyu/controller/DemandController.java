@@ -13,6 +13,15 @@ public class DemandController {
     @Autowired
     private DemandService ds;
 
+    @PostMapping("/setWithdraw")
+    public ReturnValue<Object> setWithdraw(Demand demand){
+        int i = ds.setState(demand.getDemand_id(),0);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"修改成功",null);
+    }
+
     @PostMapping("/setSubmited")
     public ReturnValue<Object> setSubmited(Demand demand){
         int i = ds.setState(demand.getDemand_id(),1);

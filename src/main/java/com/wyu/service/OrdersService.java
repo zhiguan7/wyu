@@ -9,6 +9,7 @@ public interface OrdersService {
    Orders add(Orders orders);
    int paid(long id);
    int finish(long id);
+   int update(Orders orders);
    List<Orders> searchAll();
    Orders searchById(long orders_id);
 }

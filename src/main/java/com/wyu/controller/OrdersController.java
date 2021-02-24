@@ -44,6 +44,15 @@ public class OrdersController {
         return new ReturnValue<Object>(1,"订单创建成功",null);
     }
 
+    @RequestMapping("/update")
+    public ReturnValue<Object>update(@RequestBody Orders orders){
+        int i = os.update(orders);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"修改成功",null);
+    }
+
     @PostMapping("/paid")
     public ReturnValue<Object> paid(@RequestBody Orders orders){
         int i = os.paid(orders.getOrders_id());

@@ -32,6 +32,12 @@ public class OrdersServiceImpl implements OrdersService{
     }
 
     @Override
+    public int update(Orders orders) {
+        orders.setOther(GetTimeUtil.getTime());
+        return ordersDao.update(orders);
+    }
+
+    @Override
     public List<Orders> searchAll() {
         return ordersDao.findAll();
     }
