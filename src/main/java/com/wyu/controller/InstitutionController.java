@@ -33,4 +33,22 @@ public class InstitutionController {
         }
         return new ReturnValue<Object>(1,"修改成功",null);
     }
+
+    @PostMapping("/i_approval")
+    public ReturnValue<Object> i_approval(@RequestBody int id){
+        int i = is.deal(id,true);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"申请成功",null);
+    }
+
+    @PostMapping("/i_reject")
+    public ReturnValue<Object> i_reject(@RequestBody int id){
+        int i = is.deal(id,false);
+        if(i==0){
+            return new ReturnValue<Object>(-1,"修改失败",null);
+        }
+        return new ReturnValue<Object>(1,"申请驳回",null);
+    }
 }

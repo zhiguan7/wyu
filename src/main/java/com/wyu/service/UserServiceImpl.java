@@ -20,10 +20,11 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private MailSenderUtil msu;
 
-    @Override
-    public List<User> searchUserAll() {
-        return userDao.findAll();
-    }
+
+
+    /*
+        findAll 查找全部
+     */
 
     @Override
     public User searchByEmail(String email) {

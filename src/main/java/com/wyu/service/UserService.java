@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface UserService {
 
-    List<User> searchUserAll();
     User searchByEmail(String Email);
     User searchById(long id);
     void add(User user);

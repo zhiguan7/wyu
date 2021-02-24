@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/info/update")
-public class Info_updateController {
+public class UserController {
 
     @Autowired
     private UserService us;
