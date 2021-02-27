@@ -11,11 +11,13 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="jpademo" target="1.8" />
       <module name="wyu" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="jpademo" options="-parameters" />
       <module name="wyu" options="-parameters" />
     </option>
   </component>

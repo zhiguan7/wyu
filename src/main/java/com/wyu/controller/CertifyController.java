@@ -5,8 +5,8 @@ import com.wyu.service.DemandService;
 import com.wyu.service.FactoryService;
 import com.wyu.service.InstitutionService;
 import com.wyu.service.UserService;
-import com.wyu.util.FileUtil;
-import com.wyu.util.GetInfoUtil;
+import com.wyu.util.FileUtils;
+import com.wyu.util.GetInfoUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class CertifyController {
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String filePath = path + "/temporary/" + GetInfoUtil.getUserId() + "/factory";
+        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/factory";
         File src = new File(filePath);
         if(!src.exists()) src.mkdirs();
 
@@ -63,7 +63,7 @@ public class CertifyController {
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String filePath = path + "/temporary/" + GetInfoUtil.getUserId() + "/factory";
+        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/factory";
         File src = new File(filePath);
         if(!src.exists()) src.mkdirs();
 
@@ -85,7 +85,7 @@ public class CertifyController {
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String filePath = path + "/temporary/" + GetInfoUtil.getUserId() + "/institution";
+        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution";
         File src = new File(filePath);
         if(!src.exists()) src.mkdirs();
 
@@ -107,7 +107,7 @@ public class CertifyController {
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String filePath = path + "/temporary/" + GetInfoUtil.getUserId() + "/institution";
+        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution";
         File src = new File(filePath);
         if(!src.exists()) src.mkdirs();
 
@@ -129,7 +129,7 @@ public class CertifyController {
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String filePath = path + "/temporary/" + GetInfoUtil.getUserId() + "/institution";
+        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution";
         File src = new File(filePath);
         if(!src.exists()) src.mkdirs();
 
@@ -151,7 +151,7 @@ public class CertifyController {
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String filePath = path + "/temporary/" + GetInfoUtil.getUserId() + "/institution";
+        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution";
         File src = new File(filePath);
         if(!src.exists()) src.mkdirs();
 
@@ -173,7 +173,7 @@ public class CertifyController {
         }
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String filePath = path + "/temporary/" + GetInfoUtil.getUserId() + "/demand";
+        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/demand";
         File src = new File(filePath);
         if(!src.exists()) src.mkdirs();
 
@@ -191,10 +191,10 @@ public class CertifyController {
     @PostMapping("/f_apply")
     public ReturnValue<Object> f_apply(@RequestBody Factory factory){
         User u = new User();
-        u.setUser_id(GetInfoUtil.getUserId());
+        u.setUser_id(GetInfoUtils.getUserId());
 
-        String src = path + "/temporary/" + GetInfoUtil.getUserId() + "/factory";
-        String des = path + "/data/" + GetInfoUtil.getUserId() + "/factory";
+        String src = path + "/temporary/" + GetInfoUtils.getUserId() + "/factory";
+        String des = path + "/data/" + GetInfoUtils.getUserId() + "/factory";
         File srcFile = new File(src);
         File desFile = new File(des);
         String[] srcFileNames = srcFile.list();
@@ -203,12 +203,12 @@ public class CertifyController {
         if (srcFileNames.length!=2) return new ReturnValue<Object>(-2,"文件未上传",null);
 
         try {
-            FileUtil.copyFile(src,des,srcFileNames[0]);
-            FileUtil.copyFile(src,des,srcFileNames[1]);
+            FileUtils.copyFile(src,des,srcFileNames[0]);
+            FileUtils.copyFile(src,des,srcFileNames[1]);
         }catch (FileNotFoundException e) {
             return new ReturnValue<Object>(-2,"文件未上传",null);
         }finally {
-            FileUtil.deleteDir(srcFile);
+            FileUtils.deleteDir(srcFile);
         }
         factory.setFactory_license(des+"/"+srcFileNames[0]);
         factory.setFactory_pic(des+"/"+srcFileNames[1]);
@@ -225,10 +225,10 @@ public class CertifyController {
     @PostMapping("/i_apply")
     public ReturnValue<Object> i_apply(@RequestBody Institution institution){
         User u = new User();
-        u.setUser_id(GetInfoUtil.getUserId());
+        u.setUser_id(GetInfoUtils.getUserId());
 
-        String src = path + "/temporary/" + GetInfoUtil.getUserId() + "/institution";
-        String des = path + "/data/" + GetInfoUtil.getUserId() + "/institution";
+        String src = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution";
+        String des = path + "/data/" + GetInfoUtils.getUserId() + "/institution";
         File srcFile = new File(src);
         File desFile = new File(des);
         String[] srcFileNames = srcFile.list();
@@ -237,14 +237,14 @@ public class CertifyController {
         if (srcFileNames.length!=4) return new ReturnValue<Object>(-2,"文件未上传",null);
 
         try {
-            FileUtil.copyFile(src,des,srcFileNames[0]);
-            FileUtil.copyFile(src,des,srcFileNames[1]);
-            FileUtil.copyFile(src,des,srcFileNames[3]);
-            FileUtil.copyFile(src,des,srcFileNames[4]);
+            FileUtils.copyFile(src,des,srcFileNames[0]);
+            FileUtils.copyFile(src,des,srcFileNames[1]);
+            FileUtils.copyFile(src,des,srcFileNames[3]);
+            FileUtils.copyFile(src,des,srcFileNames[4]);
         }catch (FileNotFoundException e) {
             return new ReturnValue<Object>(-2,"文件未上传",null);
         }finally {
-            FileUtil.deleteDir(srcFile);
+            FileUtils.deleteDir(srcFile);
         }
         institution.setInstitution_license(des+"/"+srcFileNames[0]);
         institution.setCredentials(des+"/"+srcFileNames[1]);
@@ -266,8 +266,8 @@ public class CertifyController {
         Subject subject = SecurityUtils.getSubject();
         User u = (User) subject.getPrincipal();
 
-        String src = path + "/temporary/" + GetInfoUtil.getUserId() + "/demand";
-        String des = path + "/data/" + GetInfoUtil.getUserId() + "/demand";
+        String src = path + "/temporary/" + GetInfoUtils.getUserId() + "/demand";
+        String des = path + "/data/" + GetInfoUtils.getUserId() + "/demand";
         File srcFile = new File(src);
         File desFile = new File(des);
         String[] srcFileNames = srcFile.list();
@@ -276,11 +276,11 @@ public class CertifyController {
             if (srcFileNames.length!=1) return new ReturnValue<Object>(-2,"文件未上传",null);
 
             try {
-                FileUtil.copyFile(src,des,srcFileNames[0]);
+                FileUtils.copyFile(src,des,srcFileNames[0]);
             }catch (FileNotFoundException e) {
                 return new ReturnValue<Object>(-2,"文件未上传",null);
             }finally {
-                FileUtil.deleteDir(srcFile);
+                FileUtils.deleteDir(srcFile);
             }
 
             demand.setEnclosure(des+"/"+srcFileNames[0]);

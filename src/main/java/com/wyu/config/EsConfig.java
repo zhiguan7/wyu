@@ -7,14 +7,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.PostConstruct;
+
 @Configuration
-//获取application.properties或application.yml获取里面的参数值
+
 @ConfigurationProperties(prefix = "elasticsearch")
 public class EsConfig {
     private String host;
     private Integer port;
     //初始化RestHighLevelClient
-    @Bean(destroyMethod = "close")
+    @Bean
     public RestHighLevelClient client(){
         return new RestHighLevelClient(RestClient.builder(
                 new HttpHost(host,port,"http")

@@ -4,8 +4,8 @@ import com.wyu.entity.*;
 import com.wyu.service.OrdersService;
 import com.wyu.service.Orders_ItemService;
 import com.wyu.service.UserService;
-import com.wyu.util.GetTimeUtil;
-import com.wyu.util.GetInfoUtil;
+import com.wyu.util.GetTimeUtils;
+import com.wyu.util.GetInfoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,11 +27,11 @@ public class OrdersController {
     public ReturnValue<Object> addOrder(@RequestBody Orders orders, @RequestBody User user, @RequestBody List<Item> items){
         try {
             Orders_Item oi = new Orders_Item();
-            orders.setInstitution(us.searchById(GetInfoUtil.getUserId()).getInstitution());
+            orders.setInstitution(us.searchById(GetInfoUtils.getUserId()).getInstitution());
             orders.setUser(us.searchById(user.getUser_id()));
             Orders o = os.add(orders);
             oi.setOrders(o);
-            oi.setOther(GetTimeUtil.getTime());
+            oi.setOther(GetTimeUtils.getTime());
             Iterator<Item> it = (Iterator<Item>) items.iterator();
             while (it.hasNext()){
                 Item i = it.next();
@@ -46,7 +46,7 @@ public class OrdersController {
 
     @RequestMapping("/update")
     public ReturnValue<Object>update(@RequestBody Orders orders){
-        if(GetInfoUtil.checkingOrders(orders)) return new ReturnValue<Object>(-1,"修改失败",null);
+        if(GetInfoUtils.checkingOrders(orders)) return new ReturnValue<Object>(-1,"修改失败",null);
         int i = os.update(orders);
         if(i==0){
             return new ReturnValue<Object>(-1,"修改失败",null);

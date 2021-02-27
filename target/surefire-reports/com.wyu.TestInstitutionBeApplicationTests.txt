@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.wyu.TestInstitutionBeApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 16.018 s - in com.wyu.TestInstitutionBeApplicationTests

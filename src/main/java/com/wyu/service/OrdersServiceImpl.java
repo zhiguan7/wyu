@@ -2,7 +2,7 @@ package com.wyu.service;
 
 import com.wyu.dao.OrdersDao;
 import com.wyu.entity.Orders;
-import com.wyu.util.GetTimeUtil;
+import com.wyu.util.GetTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,28 +17,28 @@ public class OrdersServiceImpl implements OrdersService{
     @Override
     public Orders add(Orders orders) {
         orders.setPayment(Orders.Payment.UNPAID);
-        orders.setOther(GetTimeUtil.getTime());
+        orders.setOther(GetTimeUtils.getTime());
         return ordersDao.save(orders);
     }
 
     @Override
     public int close(long id) {
-        return ordersDao.setState(id,Orders.Payment.CLOSE,GetTimeUtil.getTime());
+        return ordersDao.setState(id,Orders.Payment.CLOSE, GetTimeUtils.getTime());
     }
 
     @Override
     public int paid(long id) {
-        return ordersDao.setState(id,Orders.Payment.PAID,GetTimeUtil.getTime());
+        return ordersDao.setState(id,Orders.Payment.PAID, GetTimeUtils.getTime());
     }
 
     @Override
     public int finish(long id) {
-        return ordersDao.setState(id,Orders.Payment.FINISH,GetTimeUtil.getTime());
+        return ordersDao.setState(id,Orders.Payment.FINISH, GetTimeUtils.getTime());
     }
 
     @Override
     public int update(Orders orders) {
-        orders.setOther(GetTimeUtil.getTime());
+        orders.setOther(GetTimeUtils.getTime());
         return ordersDao.update(orders);
     }
 

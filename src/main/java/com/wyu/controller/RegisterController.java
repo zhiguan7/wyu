@@ -4,9 +4,9 @@ import com.wyu.entity.ReturnValue;
 import com.wyu.util.Encryption;
 import com.wyu.entity.User;
 import com.wyu.service.UserService;
-import com.wyu.util.MailSenderUtil;
-import com.wyu.util.CodeUtil;
-import com.wyu.util.RedisUtil;
+import com.wyu.util.MailSenderUtils;
+import com.wyu.util.CodeUtils;
+import com.wyu.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +16,9 @@ public class RegisterController {
     @Autowired
     private UserService us;
     @Autowired
-    private RedisUtil ru;
+    private RedisUtils ru;
     @Autowired
-    private MailSenderUtil msu;
+    private MailSenderUtils msu;
 
     @PostMapping("/register")
         public ReturnValue<Object> register(@RequestBody User user) {
@@ -26,7 +26,7 @@ public class RegisterController {
             if (us.searchByEmail(user.getUser_email()) != null)
                 return new ReturnValue<Object>(-1,"邮箱已被注册",null);
             else {
-                user.setCode(CodeUtil.randomCode());
+                user.setCode(CodeUtils.randomCode());
                 ru.set(user.getUser_email(), user.getCode(), 5 * 60);
                 msu.send(user.getUser_email(), user.getCode());
             }
