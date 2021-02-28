@@ -1,5 +1,6 @@
 package com.wyu.util;
 
+import com.wyu.entity.SearchBuild;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.util.CollectionUtils;
@@ -19,8 +20,15 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class SearchBuildUtils {
 
-    public static SearchRequest search(String[] indexs, int page, int size, String[] includeFields,String[] excludeFields,
-                                       Map<String, Boolean> sortFieldsToAsc, Map<String, Object> where) {
+    public static SearchRequest search(SearchBuild searchBuild) {
+
+        int page = searchBuild.getPage();
+        int size = searchBuild.getSize();
+        String[] indexes = searchBuild.getIndexes();
+        String[] includeFields = searchBuild.getIncludeFields();
+        String[] excludeFields = searchBuild.getExcludeFields();
+        Map<String, Boolean> sortFieldsToAsc = searchBuild.getSortFieldsToAsc();
+        Map<String, Object> where = searchBuild.getWhere();
 
         //UTC时间
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
@@ -28,7 +36,7 @@ public class SearchBuildUtils {
         //请求对象
         SearchRequest searchRequest = new SearchRequest();
         //指定请求对象的索引
-        searchRequest.indices(indexs);
+        searchRequest.indices(indexes);
 
         //指定文档类型,ES官方不推荐使用，7.X版本中已删除
         //searchRequest.types();
@@ -87,7 +95,7 @@ public class SearchBuildUtils {
         //添加至搜索请求
         searchRequest.source(sourceBuilder);
 
-        System.out.println(searchRequest.source().toString());
+//        System.out.println(searchRequest.source().toString());
 
         return searchRequest;
     }

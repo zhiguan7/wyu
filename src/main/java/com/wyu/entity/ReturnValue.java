@@ -6,12 +6,12 @@ public class ReturnValue<T> implements Serializable {
     private static final long serialVersionUID = -1959544190118740608L;
     private int ret;
     private String msg;
-    private T data1;
+    private T data;
 
-    public ReturnValue(int ret, String msg, T data1) {
+    public ReturnValue(int ret, String msg, T data) {
         this.ret = ret;
         this.msg = msg;
-        this.data1 = data1;
+        this.data = data;
     }
 
     public ReturnValue() {
@@ -25,8 +25,8 @@ public class ReturnValue<T> implements Serializable {
         this.msg = msg;
     }
 
-    public void setData1(T data1) {
-        this.data1 = data1;
+    public void setData1(T data) {
+        this.data = data;
     }
 
     public int getRet() {
@@ -38,7 +38,7 @@ public class ReturnValue<T> implements Serializable {
     }
 
     public T getData1() {
-        return data1;
+        return data;
     }
 
 }

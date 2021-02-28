@@ -61,7 +61,6 @@ public class Institution implements Serializable {
     private long other; //其他
 
     @Enumerated(EnumType.ORDINAL)
-
     private I_state i_state; //申请状态
 
     @JsonIgnore
