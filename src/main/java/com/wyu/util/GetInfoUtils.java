@@ -8,9 +8,16 @@ import com.wyu.entity.Orders;
 import com.wyu.entity.Orders_Item;
 import com.wyu.entity.User;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.session.mgt.SessionKey;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.subject.support.DefaultSubjectContext;
+import org.apache.shiro.web.session.mgt.WebSessionKey;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 
 public class GetInfoUtils {
@@ -26,6 +33,19 @@ public class GetInfoUtils {
         Subject subject = SecurityUtils.getSubject();
         User u = (User) subject.getPrincipal();
         return u.getUser_id();
+    }
+
+    public static boolean getUser(){
+        Subject subject = SecurityUtils.getSubject();
+        User u = (User) subject.getPrincipal();
+        if(u==null) return false;
+        else return true;
+    }
+
+    public static User getUser1(){
+        Subject subject = SecurityUtils.getSubject();
+        User u = (User) subject.getPrincipal();
+        return u;
     }
 
     public static long getFactoryId(){

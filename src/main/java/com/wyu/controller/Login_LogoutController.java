@@ -22,13 +22,17 @@ public class Login_LogoutController {
 
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUser_email(),user.getUser_password());
-
 //        token.setRememberMe(rememberMe);
         if(!currentUser.isAuthenticated()){
             try {
                 currentUser.login(token);
                 User u=(User)SecurityUtils.getSubject().getPrincipal();
-                return  new ReturnValue<User>(1,"登陆成功",new User(u.getUser_id(),u.getUser_email(),u.getUser_name(),u.getUser_role()));
+                if (null != currentUser.getSession())
+                {
+                    String sessionId = (String)currentUser.getSession().getId();
+                    return  new ReturnValue<User>(1,"登陆成功",new User(u.getUser_id(),u.getUser_email(),u.getUser_name(),u.getUser_role(),sessionId));
+                }
+                return new ReturnValue<User>(1,"登陆成功",new User(u.getUser_id(),u.getUser_email(),u.getUser_name(),u.getUser_role(),null));
             } catch (UnknownAccountException e) {
                 return new ReturnValue<User>(-1,"用户名不存在",null);
             } catch (IncorrectCredentialsException e) {
@@ -39,8 +43,9 @@ public class Login_LogoutController {
         }
     }
 
-    @RequestMapping("/logout")
+    @PostMapping("/logout")
     public ReturnValue<Object> logout() {
+        SecurityUtils.getSubject().logout();
         return new ReturnValue<Object>(1,"退出登陆",null);
     }
 }

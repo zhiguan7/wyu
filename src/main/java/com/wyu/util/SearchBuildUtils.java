@@ -5,7 +5,9 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.util.CollectionUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.WildcardQueryBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.ScoreSortBuilder;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -51,19 +54,7 @@ public class SearchBuildUtils {
         if (where != null && !where.isEmpty()) {
             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
             where.forEach((k, v) -> {
-                if (v instanceof Map) {
-                    //范围选择map  暂定时间
-                    Map<String, Date> mapV = (Map<String, Date>) v;
-                    if (mapV != null) {
-                        boolQueryBuilder.must(
-                                QueryBuilders.rangeQuery(k).
-                                        gte(format.format(mapV.get("start"))).
-                                        lt(format.format(mapV.get("end"))));
-                    }
-                } else {
-                    //普通模糊匹配
-                    boolQueryBuilder.must(QueryBuilders.wildcardQuery(k, v.toString()));
-                }
+                boolQueryBuilder.must(QueryBuilders.matchQuery(k, v));
             });
             sourceBuilder.query(boolQueryBuilder);
         }
@@ -96,7 +87,6 @@ public class SearchBuildUtils {
         searchRequest.source(sourceBuilder);
 
 //        System.out.println(searchRequest.source().toString());
-
         return searchRequest;
     }
 

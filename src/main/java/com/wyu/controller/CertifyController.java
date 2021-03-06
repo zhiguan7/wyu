@@ -7,8 +7,6 @@ import com.wyu.service.InstitutionService;
 import com.wyu.service.UserService;
 import com.wyu.util.FileUtils;
 import com.wyu.util.GetInfoUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +37,7 @@ public class CertifyController {
         if (file.isEmpty()) {
             return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
+        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/factory";
@@ -61,6 +60,7 @@ public class CertifyController {
         if (file.isEmpty()) {
             return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
+        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/factory";
@@ -83,6 +83,7 @@ public class CertifyController {
         if (file.isEmpty()) {
             return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
+        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution";
@@ -105,6 +106,7 @@ public class CertifyController {
         if (file.isEmpty()) {
             return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
+        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution";
@@ -127,6 +129,7 @@ public class CertifyController {
         if (file.isEmpty()) {
             return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
+        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution";
@@ -149,6 +152,7 @@ public class CertifyController {
         if (file.isEmpty()) {
             return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
+        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution";
@@ -171,6 +175,7 @@ public class CertifyController {
         if (file.isEmpty()) {
             return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
+        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/demand";
@@ -192,7 +197,7 @@ public class CertifyController {
     public ReturnValue<Object> f_apply(@RequestBody Factory factory){
         User u = new User();
         u.setUser_id(GetInfoUtils.getUserId());
-
+        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
         String src = path + "/temporary/" + GetInfoUtils.getUserId() + "/factory";
         String des = path + "/data/" + GetInfoUtils.getUserId() + "/factory";
         File srcFile = new File(src);
@@ -226,7 +231,7 @@ public class CertifyController {
     public ReturnValue<Object> i_apply(@RequestBody Institution institution){
         User u = new User();
         u.setUser_id(GetInfoUtils.getUserId());
-
+        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
         String src = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution";
         String des = path + "/data/" + GetInfoUtils.getUserId() + "/institution";
         File srcFile = new File(src);
@@ -263,8 +268,6 @@ public class CertifyController {
 
     @PostMapping("/d_apply")
     public ReturnValue<Object> d_apply(@RequestBody Demand demand){
-        Subject subject = SecurityUtils.getSubject();
-        User u = (User) subject.getPrincipal();
 
         String src = path + "/temporary/" + GetInfoUtils.getUserId() + "/demand";
         String des = path + "/data/" + GetInfoUtils.getUserId() + "/demand";
@@ -285,7 +288,7 @@ public class CertifyController {
 
             demand.setEnclosure(des+"/"+srcFileNames[0]);
         }
-        demand.setUser(u);
+        demand.setUser(GetInfoUtils.getUser1());
         try {
             ds.add(demand);
         } catch (Exception e) {

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 @Data
@@ -18,5 +19,6 @@ public class SearchBuild implements Serializable {
     private String[] excludeFields;
     private Map<String, Boolean> sortFieldsToAsc;
     private Map<String, Object> where;
-    
+
+
 }

@@ -24,7 +24,7 @@ public interface OrdersDao extends JpaRepository<Orders,Long> {
     @Query( "update Orders o set " +
             "o.sundries = case when :#{#orders.sundries} is null then o.sundries else :#{#orders.sundries} end , " +
             "o.orders_remarks = case when :#{#orders.orders_remarks} is null then o.orders_remarks else :#{#orders.orders_remarks} end , " +
-            "o.type = case when :#{#orders.type} is null then o.type else :#{#orders.type} end , " +
+            "o.p_type = case when :#{#orders.p_type} is null then o.p_type else :#{#orders.p_type} end , " +
             "o.sundries = case when :#{#orders.sundries} is null then o.sundries else :#{#orders.sundries} end , " +
             "o.other = :#{#orders.other} where o.orders_id = :#{#orders.orders_id}")
     int update(@Param("orders") Orders orders);

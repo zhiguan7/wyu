@@ -2,10 +2,12 @@ package com.wyu.config;
 
 import com.wyu.entity.User;
 import com.wyu.service.UserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,9 @@ public class UserRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         User user = userService.searchByEmail(token.getUsername()); //token中的username实际上是邮箱
         if(user==null) return null;
+        if(user.getUser_state()== User.State.CLOSE||user.getUser_state()== User.State.BAN) return null;
         ByteSource salt = ByteSource.Util.bytes(user.getUser_email());
-        return new SimpleAuthenticationInfo(user,user.getUser_password(),salt,this.getName());
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user,user.getUser_password(),salt,this.getName());
+        return authenticationInfo;
     }
 }

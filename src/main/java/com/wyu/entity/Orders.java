@@ -42,8 +42,8 @@ public class Orders implements Serializable {
     @Column(name = "orders_remarks",length = 200)
     private String orders_remarks; //订单备注
 
-    @Column(name = "type",length = 20)
-    private String type; //交易类型
+    @Column(name = "p_type",length = 20)
+    private String p_type; //交易类型
 
     @Enumerated(EnumType.ORDINAL)
     private Payment payment; //订单状态
