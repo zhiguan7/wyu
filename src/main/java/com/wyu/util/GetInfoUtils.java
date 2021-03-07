@@ -30,30 +30,50 @@ public class GetInfoUtils {
     private static OrdersDao ordersDao;
 
     public static long getUserId(){
-        Subject subject = SecurityUtils.getSubject();
-        User u = (User) subject.getPrincipal();
-        return u.getUser_id();
+        try {
+            Subject subject = SecurityUtils.getSubject();
+            User u = (User) subject.getPrincipal();
+            return u.getUser_id();
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
     public static boolean getUser(){
-        Subject subject = SecurityUtils.getSubject();
-        User u = (User) subject.getPrincipal();
-        if(u==null) return false;
-        else return true;
+        try {
+            Subject subject = SecurityUtils.getSubject();
+            User u = (User) subject.getPrincipal();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static User getUser1(){
-        Subject subject = SecurityUtils.getSubject();
-        User u = (User) subject.getPrincipal();
-        return u;
+        try {
+            Subject subject = SecurityUtils.getSubject();
+            User u = (User) subject.getPrincipal();
+            return u;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public static long getFactoryId(){
-        return userDao.findByUserId(getUserId()).getFactory().getFactory_id();
+
+        try {
+            return userDao.findByUserId(getUserId()).getFactory().getFactory_id();
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
     public static long getInsId(){
-        return userDao.findByUserId(getUserId()).getInstitution().getInstitution_id();
+        try {
+            return userDao.findByUserId(getUserId()).getInstitution().getInstitution_id();
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
     public static boolean checkingItem(Item item){
