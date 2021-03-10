@@ -13,7 +13,7 @@ public class MailSenderUtils {
     JavaMailSenderImpl javaMailSender;
 
     @Async
-    public void send(String email,String context){
+    public void sendCode(String email, String context){
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
         mailMessage.setSubject("测试验证码");
@@ -29,4 +29,17 @@ public class MailSenderUtils {
 
         javaMailSender.send(mailMessage);
     }
+
+    @Async
+    public void send(String email, String context){
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setSubject("测试");
+        mailMessage.setText(context);
+        mailMessage.setTo(email);
+        mailMessage.setFrom("1405309321@qq.com");
+
+        javaMailSender.send(mailMessage);
+    }
+
+
 }

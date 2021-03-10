@@ -18,7 +18,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/upload")
-public class CertifyController {
+public class UploadController {
 
     @Autowired
     private FactoryService fs;
@@ -30,21 +30,21 @@ public class CertifyController {
     private UserService us;
 
     String path = ResourceUtils.getURL("").getPath()+"/src/main/resources";
-    public CertifyController() throws FileNotFoundException { }
+    public UploadController() throws FileNotFoundException { }
 
     @PostMapping("/f_license")
     public ReturnValue<Object> f_upload_1(@RequestBody MultipartFile file){
         if (file.isEmpty()) {
             return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
-        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
+        if(null==GetInfoUtils.getUser1()) return new ReturnValue<Object>(-3,"未登陆",null);
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/factory";
+        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/factory/license";
         File src = new File(filePath);
         if(!src.exists()) src.mkdirs();
 
-        String name = filePath  + "/1_license" + suffixName;
+        String name = filePath + "/" + fileName;
         File des = new File(name);
         try {
             file.transferTo(des);
@@ -60,14 +60,14 @@ public class CertifyController {
         if (file.isEmpty()) {
             return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
-        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
+        if(null==GetInfoUtils.getUser1()) return new ReturnValue<Object>(-3,"未登陆",null);
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/factory";
+        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/factory/pic";
         File src = new File(filePath);
         if(!src.exists()) src.mkdirs();
 
-        String name = filePath + "/2_pic" + suffixName;
+        String name = filePath + "/" + fileName;
         File des = new File(name);
         try {
             file.transferTo(des);
@@ -83,14 +83,14 @@ public class CertifyController {
         if (file.isEmpty()) {
             return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
-        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
+        if(null==GetInfoUtils.getUser1()) return new ReturnValue<Object>(-3,"未登陆",null);
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution";
+        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution/license";
         File src = new File(filePath);
         if(!src.exists()) src.mkdirs();
 
-        String name = filePath  + "1_license" + suffixName;
+        String name = filePath + "/" + fileName;
         File des = new File(name);
         try {
             file.transferTo(des);
@@ -106,14 +106,14 @@ public class CertifyController {
         if (file.isEmpty()) {
             return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
-        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
+        if(null==GetInfoUtils.getUser1()) return new ReturnValue<Object>(-3,"未登陆",null);
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution";
+        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution/credentials";
         File src = new File(filePath);
         if(!src.exists()) src.mkdirs();
 
-        String name = filePath  + "2_credentials" + suffixName;
+        String name = filePath + "/" + fileName;
         File des = new File(name);
         try {
             file.transferTo(des);
@@ -129,14 +129,14 @@ public class CertifyController {
         if (file.isEmpty()) {
             return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
-        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
+        if(null==GetInfoUtils.getUser1()) return new ReturnValue<Object>(-3,"未登陆",null);
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution";
+        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution/enclosure";
         File src = new File(filePath);
         if(!src.exists()) src.mkdirs();
 
-        String name = filePath  + "3_enclosure" + suffixName;
+        String name = filePath + "/" + fileName;
         File des = new File(name);
         try {
             file.transferTo(des);
@@ -152,14 +152,14 @@ public class CertifyController {
         if (file.isEmpty()) {
             return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
-        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
+        if(null==GetInfoUtils.getUser1()) return new ReturnValue<Object>(-3,"未登陆",null);
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution";
+        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution/pic";
         File src = new File(filePath);
         if(!src.exists()) src.mkdirs();
 
-        String name = filePath  + "4_pic" + suffixName;
+        String name = filePath + "/" + fileName;
         File des = new File(name);
         try {
             file.transferTo(des);
@@ -175,14 +175,12 @@ public class CertifyController {
         if (file.isEmpty()) {
             return new ReturnValue<Object>(-1,"上传失败，空文件",null);
         }
-        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
+        if(null==GetInfoUtils.getUser1()) return new ReturnValue<Object>(-3,"未登陆",null);
         String fileName = file.getOriginalFilename();
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/demand";
+        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + "/demand/enclosure";
         File src = new File(filePath);
         if(!src.exists()) src.mkdirs();
-
-        String name = filePath  + "1_enclosure" + suffixName;
+        String name = filePath + "/" + fileName;
         File des = new File(name);
         try {
             file.transferTo(des);
@@ -197,26 +195,35 @@ public class CertifyController {
     public ReturnValue<Object> f_apply(@RequestBody Factory factory){
         User u = new User();
         u.setUser_id(GetInfoUtils.getUserId());
-        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
+        if(null==GetInfoUtils.getUser1()) return new ReturnValue<Object>(-3,"未登陆",null);
         String src = path + "/temporary/" + GetInfoUtils.getUserId() + "/factory";
         String des = path + "/data/" + GetInfoUtils.getUserId() + "/factory";
         File srcFile = new File(src);
-        File desFile = new File(des);
-        String[] srcFileNames = srcFile.list();
-        if (!srcFile.exists()) return new ReturnValue<Object>(-2,"文件未上传",null);
-        if (!desFile.exists()) desFile.mkdirs();
-        if (srcFileNames.length!=2) return new ReturnValue<Object>(-2,"文件未上传",null);
+        File srcFile1 = new File(src+"/license");
+        File desFile1 = new File(des+"/license");
+        File srcFile2 = new File(src+"/pic");
+        File desFile2 = new File(des+"/pic");
+        String[] srcFileNames1 = srcFile1.list();
+        String[] srcFileNames2 = srcFile2.list();
+        if (!srcFile1.exists()) return new ReturnValue<Object>(-2,"文件未上传",null);
+        if (!srcFile2.exists()) return new ReturnValue<Object>(-2,"文件未上传",null);
+        if (!desFile1.exists()) desFile1.mkdirs();
+        if (!desFile2.exists()) desFile2.mkdirs();
+        if (srcFileNames1.length<1) return new ReturnValue<Object>(-2,"文件未上传",null);
+        if (srcFileNames2.length<1) return new ReturnValue<Object>(-2,"文件未上传",null);
 
         try {
-            FileUtils.copyFile(src,des,srcFileNames[0]);
-            FileUtils.copyFile(src,des,srcFileNames[1]);
+            int i = 0;
+            while(i<srcFileNames1.length) FileUtils.copyFile(src,des,srcFileNames1[i++]);
+            i = 0;
+            while(i<srcFileNames2.length) FileUtils.copyFile(src,des,srcFileNames2[i++]);
         }catch (FileNotFoundException e) {
             return new ReturnValue<Object>(-2,"文件未上传",null);
         }finally {
-            FileUtils.deleteDir(srcFile);
+            FileUtils.deleteDir(srcFile.getParentFile());
         }
-        factory.setFactory_license(des+"/"+srcFileNames[0]);
-        factory.setFactory_pic(des+"/"+srcFileNames[1]);
+        factory.setFactory_license(des+"/license");
+        factory.setFactory_pic(des+"/pic");
         u.setFactory(factory);
         try {
             fs.add(factory);
@@ -231,30 +238,53 @@ public class CertifyController {
     public ReturnValue<Object> i_apply(@RequestBody Institution institution){
         User u = new User();
         u.setUser_id(GetInfoUtils.getUserId());
-        if(!GetInfoUtils.getUser()) return new ReturnValue<Object>(-3,"未登陆",null);
+        if(null==GetInfoUtils.getUser1()) return new ReturnValue<Object>(-3,"未登陆",null);
         String src = path + "/temporary/" + GetInfoUtils.getUserId() + "/institution";
         String des = path + "/data/" + GetInfoUtils.getUserId() + "/institution";
         File srcFile = new File(src);
-        File desFile = new File(des);
-        String[] srcFileNames = srcFile.list();
-        if(!srcFile.exists()) return new ReturnValue<Object>(-2,"文件未上传",null);
-        if(!desFile.exists()) desFile.mkdirs();
-        if (srcFileNames.length!=4) return new ReturnValue<Object>(-2,"文件未上传",null);
+        File srcFile1 = new File(src+"/license");
+        File desFile1 = new File(des+"/license");
+        File srcFile2 = new File(src+"/credentials");
+        File desFile2 = new File(des+"/credentials");
+        File srcFile3 = new File(src+"/enclosure");
+        File desFile3 = new File(des+"/enclosure");
+        File srcFile4 = new File(src+"/pic");
+        File desFile4 = new File(des+"/pic");
+        String[] srcFileNames1 = srcFile1.list();
+        String[] srcFileNames2 = srcFile2.list();
+        String[] srcFileNames3 = srcFile3.list();
+        String[] srcFileNames4 = srcFile4.list();
+        if(!srcFile1.exists()) return new ReturnValue<Object>(-2,"文件未上传",null);
+        if(!srcFile2.exists()) return new ReturnValue<Object>(-2,"文件未上传",null);
+        if(!srcFile3.exists()) return new ReturnValue<Object>(-2,"文件未上传",null);
+        if(!srcFile4.exists()) return new ReturnValue<Object>(-2,"文件未上传",null);
+        if(!desFile1.exists()) desFile1.mkdirs();
+        if(!desFile2.exists()) desFile2.mkdirs();
+        if(!desFile3.exists()) desFile3.mkdirs();
+        if(!desFile4.exists()) desFile4.mkdirs();
+        if (srcFileNames1.length<1) return new ReturnValue<Object>(-2,"文件未上传",null);
+        if (srcFileNames2.length<1) return new ReturnValue<Object>(-2,"文件未上传",null);
+        if (srcFileNames3.length<1) return new ReturnValue<Object>(-2,"文件未上传",null);
+        if (srcFileNames4.length<1) return new ReturnValue<Object>(-2,"文件未上传",null);
 
         try {
-            FileUtils.copyFile(src,des,srcFileNames[0]);
-            FileUtils.copyFile(src,des,srcFileNames[1]);
-            FileUtils.copyFile(src,des,srcFileNames[3]);
-            FileUtils.copyFile(src,des,srcFileNames[4]);
+            int i = 0;
+            while(i<srcFileNames1.length) FileUtils.copyFile(src,des,srcFileNames1[i++]);
+            i = 0;
+            while(i<srcFileNames2.length) FileUtils.copyFile(src,des,srcFileNames2[i++]);
+            i = 0;
+            while(i<srcFileNames1.length) FileUtils.copyFile(src,des,srcFileNames3[i++]);
+            i = 0;
+            while(i<srcFileNames2.length) FileUtils.copyFile(src,des,srcFileNames4[i++]);
         }catch (FileNotFoundException e) {
             return new ReturnValue<Object>(-2,"文件未上传",null);
         }finally {
-            FileUtils.deleteDir(srcFile);
+            FileUtils.deleteDir(srcFile.getParentFile());
         }
-        institution.setInstitution_license(des+"/"+srcFileNames[0]);
-        institution.setCredentials(des+"/"+srcFileNames[1]);
-        institution.setEnclosure(des+"/"+srcFileNames[2]);
-        institution.setInstitution_pic(des+"/"+srcFileNames[3]);
+        institution.setInstitution_license(des+"/license");
+        institution.setCredentials(des+"/credentials");
+        institution.setEnclosure(des+"/enclosure");
+        institution.setInstitution_pic(des+"/pic");
 
         u.setInstitution(institution);
         try {
@@ -269,26 +299,30 @@ public class CertifyController {
     @PostMapping("/d_apply")
     public ReturnValue<Object> d_apply(@RequestBody Demand demand){
 
-        String src = path + "/temporary/" + GetInfoUtils.getUserId() + "/demand";
-        String des = path + "/data/" + GetInfoUtils.getUserId() + "/demand";
+        if(null==GetInfoUtils.getUser1()) return new ReturnValue<Object>(-3,"未登陆",null);
+        String src = path + "/temporary/" + GetInfoUtils.getUserId() + "/demand/enclosure";
+        String des = path + "/data/" + GetInfoUtils.getUserId() + "/demand/enclosure";
         File srcFile = new File(src);
         File desFile = new File(des);
         String[] srcFileNames = srcFile.list();
         if(srcFile.exists()) {
             if(!desFile.exists()) desFile.mkdirs();
-            if (srcFileNames.length!=1) return new ReturnValue<Object>(-2,"文件未上传",null);
+            if (srcFileNames.length<1) return new ReturnValue<Object>(-2,"文件未上传",null);
 
             try {
-                FileUtils.copyFile(src,des,srcFileNames[0]);
+                int i = 0;
+                while(i<srcFileNames.length){
+                    FileUtils.copyFile(src,des,srcFileNames[i++]);
+                }
             }catch (FileNotFoundException e) {
                 return new ReturnValue<Object>(-2,"文件未上传",null);
             }finally {
-                FileUtils.deleteDir(srcFile);
+                FileUtils.deleteDir(srcFile.getParentFile().getParentFile());
             }
-
-            demand.setEnclosure(des+"/"+srcFileNames[0]);
+            demand.setEnclosure(des);
         }
         demand.setUser(GetInfoUtils.getUser1());
+        System.out.println(GetInfoUtils.getUser1());
         try {
             ds.add(demand);
         } catch (Exception e) {

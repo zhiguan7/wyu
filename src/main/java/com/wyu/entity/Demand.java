@@ -44,7 +44,7 @@ public class Demand implements Serializable {
     private String describes; //需求描述
 
     @Column(name = "create_time")
-    private int create_time; //创建时间
+    private long create_time; //创建时间
 
     @Column(name = "recommend",length = 200)
     private String recommend; //推荐机构(多家)

@@ -24,6 +24,9 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+    Ddruid:
+      mysql:
+        usePingMethod: false
   mail:
     username: 1405309321@qq.com
     password: zmxooennttybibgf

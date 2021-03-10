@@ -14,8 +14,9 @@ public class DemandServiceImpl implements DemandService{
 
     @Override
     public void add(Demand demand) {
-        demand.setDemand_state(Demand.demandState.SUBMIT);
+        demand.setDemand_state(Demand.demandState.SUBMITED);
         demand.setOther(GetTimeUtils.getTime());
+        demand.setCreate_time(GetTimeUtils.getTime());
         demandDao.save(demand);
     }
 
@@ -27,21 +28,24 @@ public class DemandServiceImpl implements DemandService{
                 s = Demand.demandState.WITHDRAW;
                 break;
             case 1:
-                s = Demand.demandState.SUBMITED;
+                s = Demand.demandState.SUBMIT;
                 break;
             case 2:
-                s = Demand.demandState.AUDIT;
+                s = Demand.demandState.SUBMITED;
                 break;
             case 3:
-                s = Demand.demandState.AUDITED;
+                s = Demand.demandState.AUDIT;
                 break;
             case 4:
-                s = Demand.demandState.TEST;
+                s = Demand.demandState.AUDITED;
                 break;
             case 5:
-                s = Demand.demandState.TESTED;
+                s = Demand.demandState.TEST;
                 break;
             case 6:
+                s = Demand.demandState.TESTED;
+                break;
+            case 7:
                 s = Demand.demandState.FINISH;
                 break;
         }

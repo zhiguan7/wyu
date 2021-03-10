@@ -14,7 +14,7 @@ public interface FactoryDao extends JpaRepository<Factory,Long> {
     @Modifying
     @Transactional
     @Query("update Factory f set f.f_state = :#{#state}, f.other = :#{#other} where f.factory_id = :#{#id}")
-    int setState(@Param("id")long id, @Param("state") Factory.F_state state, long other);
+    int setState(@Param("id")long id, @Param("state") Factory.F_state state, @Param("other")long other);
 
 
     @Modifying

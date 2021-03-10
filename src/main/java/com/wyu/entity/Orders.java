@@ -49,13 +49,13 @@ public class Orders implements Serializable {
     private Payment payment; //订单状态
 
     @Column(name = "create_time")
-    private int create_time; //交易创建时间
+    private long create_time; //交易创建时间
 
     @Column(name = "pay_time")
-    private int pay_time; //交易付款时间
+    private long pay_time; //交易付款时间
 
     @Column(name = "completion_time")
-    private int completion_time; //交易关闭时间
+    private long completion_time; //交易关闭时间
 
     @Column(name = "other",length = 200)
     private long other; //其他

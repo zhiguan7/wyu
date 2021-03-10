@@ -30,19 +30,19 @@ public class UserController {
             if(us.searchByEmail(user.getUser_email()) != null) return new ReturnValue<Object>(-1,"邮箱已被注册",null);
             user.setCode(CodeUtils.randomCode());
             ru.set(user.getUser_email(), user.getCode(), 5 * 60);
-            msu.send(user.getUser_email(), user.getCode());
+            msu.sendCode(user.getUser_email(), user.getCode());
         }else{
             if(user.getUser_email()!=null){
                 if(us.searchByEmail(user.getUser_email()) != null) return new ReturnValue<Object>(-1,"邮箱已被注册",null);
                 user.setCode(CodeUtils.randomCode());
                 ru.set(user.getUser_email(), user.getCode(), 5 * 60);
-                msu.send(user.getUser_email(), user.getCode());
+                msu.sendCode(user.getUser_email(), user.getCode());
             }else{
                 if(user.getUser_password()!=null){
                     user.setCode(CodeUtils.randomCode());
                     user.setUser_email(u.getUser_email());
                     ru.set(u.getUser_email(), user.getCode(), 5 * 60);
-                    msu.send(u.getUser_email(), user.getCode());
+                    msu.sendCode(u.getUser_email(), user.getCode());
                 }else{
                     int i = us.update(u);
                     if(i==0){

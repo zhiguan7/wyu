@@ -218,7 +218,6 @@ public class SearchController {
             e.printStackTrace();
             return new ReturnValue<List>(-1,"查询失败",null);
         }
-
     }
 
     @PostMapping("/demandAll")

@@ -14,7 +14,7 @@ public interface ItemDao extends JpaRepository<Item,Long> {
     @Modifying
     @Transactional
     @Query("update Item i set i.item_state = :#{#state}, i.other = :#{#other} where i.item_id = :#{#id}")
-    int changeState(@Param("id")long id, @Param("state") Item.Item_state state, long other);
+    int changeState(@Param("id")long id, @Param("state") Item.Item_state state, @Param("other")long other);
 
     @Modifying
     @Transactional

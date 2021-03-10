@@ -40,17 +40,20 @@ public class SearchBuildUtils {
 
         //添加条件
         if (where != null && !where.isEmpty()) {
-            BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+            BoolQueryBuilder boolQueryBuilder1 = QueryBuilders.boolQuery();
+            BoolQueryBuilder boolQueryBuilder2 = QueryBuilders.boolQuery();
             where.forEach((k, v) -> {
-                if(v instanceof List){
-                    List l = (List)v;
+                if(v instanceof List) {
+                    List l = (List) v;
                     Iterator iterator = l.iterator();
-                    while(iterator.hasNext()) boolQueryBuilder.should(QueryBuilders.termQuery(k, iterator.next()));
+                    while (iterator.hasNext())
+                        boolQueryBuilder2.should(QueryBuilders.matchQuery(k, iterator.next()));
                 }else {
-                    boolQueryBuilder.must(QueryBuilders.matchQuery(k, v));
+                    boolQueryBuilder1.must(QueryBuilders.matchQuery(k, v));
                 }
             });
-            sourceBuilder.query(boolQueryBuilder);
+            boolQueryBuilder1.must(boolQueryBuilder2);
+            sourceBuilder.query(boolQueryBuilder1);
         }
 
         //设置查询的起始索引位置和数量

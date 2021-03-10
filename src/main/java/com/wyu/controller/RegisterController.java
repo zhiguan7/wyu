@@ -28,7 +28,7 @@ public class RegisterController {
             else {
                 user.setCode(CodeUtils.randomCode());
                 ru.set(user.getUser_email(), user.getCode(), 5 * 60);
-                msu.send(user.getUser_email(), user.getCode());
+                msu.sendCode(user.getUser_email(), user.getCode());
             }
             return new ReturnValue<Object>(1,"邮箱验证码已发送",null);
     }
