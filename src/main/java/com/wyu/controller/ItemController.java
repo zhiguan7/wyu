@@ -43,8 +43,7 @@ public class ItemController {
 
     @RequestMapping("/delete")
     public ReturnValue<Object> delete(Item item){
-        int i = is.delete(item);
-        if(i==0){
+        if(is.delete(item)==0){
             return new ReturnValue<Object>(-1,"删除失败",null);
         }
         return new ReturnValue<Object>(1,"下架成功",null);
@@ -52,8 +51,7 @@ public class ItemController {
 
     @RequestMapping("/reUp")
     public ReturnValue<Object> reUp(Item item){
-        int i = is.upItem(item);
-        if(i==0){
+        if(is.upItem(item)==0){
             return new ReturnValue<Object>(-1,"上架失败",null);
         }
         return new ReturnValue<Object>(1,"上架成功",null);
@@ -62,8 +60,7 @@ public class ItemController {
     @RequestMapping("/update")
     public ReturnValue<Object> update(Item item){
         if(GetInfoUtils.checkingItem(item)) return new ReturnValue<Object>(-1,"修改失败",null);
-        int i = is.update(item);
-        if(i==0){
+        if(is.update(item)==0){
             return new ReturnValue<Object>(-1,"修改失败",null);
         }
         return new ReturnValue<Object>(1,"修改成功",null);

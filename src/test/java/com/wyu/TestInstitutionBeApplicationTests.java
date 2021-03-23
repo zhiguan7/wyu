@@ -1,5 +1,6 @@
 package com.wyu;
 
+import com.wyu.util.CodeUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.ResourceUtils;
@@ -33,6 +34,7 @@ class TestInstitutionBeApplicationTests {
 //			inputChannel.close();
 //			outputChannel.close();
 //		}
+		System.out.println(CodeUtils.randomCode());
 	}
 
 }

@@ -23,8 +23,6 @@ import java.io.File;
 public class GetInfoUtils {
 
     @Autowired
-    private static UserDao userDao;
-    @Autowired
     private static Ins_ItemDao ins_itemDao;
     @Autowired
     private static OrdersDao ordersDao;
@@ -60,9 +58,8 @@ public class GetInfoUtils {
     }
 
     public static long getFactoryId(){
-
         try {
-            return userDao.findByUserId(getUserId()).getFactory().getFactory_id();
+            return getUser1().getFactory().getFactory_id();
         } catch (Exception e) {
             return -1;
         }
@@ -70,14 +67,14 @@ public class GetInfoUtils {
 
     public static long getInsId(){
         try {
-            return userDao.findByUserId(getUserId()).getInstitution().getInstitution_id();
+            return getUser1().getInstitution().getInstitution_id();
         } catch (Exception e) {
             return -1;
         }
     }
 
     public static boolean checkingItem(Item item){
-        return ins_itemDao.findByIns(item,userDao.findByUserId(getUserId()).getInstitution());
+        return ins_itemDao.findByIns(item,getUser1().getInstitution());
     }
 
     public static boolean checkingOrders(Orders orders){

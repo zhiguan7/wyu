@@ -13,10 +13,11 @@ import java.util.concurrent.Executors;
 @Component
 public class FileUtils{
 
-    static String path;
+    private static String path;
+    private static String separator = java.io.File.separator;
     static {
         try {
-            path = ResourceUtils.getURL("").getPath()+"/src/main/resources";
+            path = ResourceUtils.getURL("").getPath() +"src" + separator + "main" + separator + "resources";
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -25,22 +26,22 @@ public class FileUtils{
     public static boolean copyDir(String src, String des){
         File file = new File(src);
         String[] filePath = file.list();
-        System.out.println(file.list().length);
         CountDownLatch countDownLatch = new CountDownLatch(filePath.length);
-        ExecutorService service = Executors.newFixedThreadPool(3);
+        ExecutorService service = Executors.newCachedThreadPool();
         if (!(new File(des)).exists()) {
             (new File(des)).mkdirs();
         }
         try {
             for (int i = 0; i < filePath.length; i++) {
-                if ((new File(src + "/" + filePath[i])).isDirectory()) {
-                    copyDir(src  + "/"  + filePath[i], des  + "/" + filePath[i]);
+                if ((new File(src + separator + filePath[i])).isDirectory()) {
+                    copyDir(src  + separator  + filePath[i], des  + separator + filePath[i]);
                 }
-                if (new File(src  + "/" + filePath[i]).isFile()) {
-                    service.execute(new FileCopy(src + "/" + filePath[i], des + "/" + filePath[i]));
+                if (new File(src  + separator + filePath[i]).isFile()) {
+                    service.execute(new FileCopy(src + separator + filePath[i], des + separator + filePath[i]));
                 }
                 countDownLatch.countDown();
             }
+            countDownLatch.await();
         } catch (Exception e) {
             return false;
         }finally {
@@ -64,17 +65,15 @@ public class FileUtils{
     }
 
     public static boolean uploadTempFile(MultipartFile file,String where){
-
         if (file.isEmpty()) {
             return false;
         }
         if(null==GetInfoUtils.getUser1()) return false;
         String fileName = file.getOriginalFilename();
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String filePath = path + "/temporary/" + GetInfoUtils.getUserId() + where;
+        String filePath = path + separator +"temporary" + separator + GetInfoUtils.getUserId() + where;
         File src = new File(filePath);
         if(!src.exists()) src.mkdirs();
-        String name = filePath + "/" + fileName;
+        String name = filePath + separator + fileName;
         File des = new File(name);
         try {
             file.transferTo(des);
@@ -86,11 +85,10 @@ public class FileUtils{
 
     public static boolean tempToData(String type) throws IOException {
 
-        String src = path + "/temporary/" + GetInfoUtils.getUserId() + "/" +type;
-        String des = path + "/data/" + GetInfoUtils.getUserId() + "/" +type;
+        String src = path + separator +"temporary" + separator + GetInfoUtils.getUserId() + separator + type;
+        String des = path + separator + "data" + separator + GetInfoUtils.getUserId() + separator + type;
         File srcFile = new File(src);
-        boolean temp = copyDir(src,des);
-        if(temp) {
+        if(copyDir(src,des)) {
             deleteDir(srcFile);
             return true;
         }

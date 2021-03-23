@@ -8,6 +8,5 @@ public interface InstitutionService {
     void add(Institution institution);
     int update(Institution institution);
     int update_qualifications(Institution institution);
-    List<Institution> searchAll();
-    int deal(int id, boolean flag);
+    int deal(long id, boolean flag);
 }

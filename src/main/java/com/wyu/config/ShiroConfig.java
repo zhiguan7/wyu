@@ -112,8 +112,5 @@ public class ShiroConfig {
         redisSessionDAO.setRedisManager(redisManager());
         return redisSessionDAO;
     }
-
-
-
 }
 

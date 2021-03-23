@@ -20,6 +20,7 @@ public class InstitutionServiceImpl implements InstitutionService{
     public void add(Institution institution) {
         institution.setI_state(Institution.I_state.APPLY);
         institution.setOther(GetTimeUtils.getTime());
+        institution.setCreate_time(GetTimeUtils.getTime());
         institutionDao.save(institution);
     }
 
@@ -36,12 +37,7 @@ public class InstitutionServiceImpl implements InstitutionService{
     }
 
     @Override
-    public List<Institution> searchAll() {
-        return institutionDao.findAll();
-    }
-
-    @Override
-    public int deal(int id, boolean flag) {
+    public int deal(long id, boolean flag) {
         int re = 0;
         if (flag){
             re = institutionDao.setState(id, Institution.I_state.SUCCESS, GetTimeUtils.getTime());

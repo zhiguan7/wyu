@@ -47,8 +47,7 @@ public class OrdersController {
     @RequestMapping("/update")
     public ReturnValue<Object>update(@RequestBody Orders orders){
         if(GetInfoUtils.checkingOrders(orders)) return new ReturnValue<Object>(-1,"修改失败",null);
-        int i = os.update(orders);
-        if(i==0){
+        if(os.update(orders)==0){
             return new ReturnValue<Object>(-1,"修改失败",null);
         }
         return new ReturnValue<Object>(1,"修改成功",null);
@@ -56,8 +55,7 @@ public class OrdersController {
 
     @PostMapping("/close")
     public ReturnValue<Object> close(@RequestBody Orders orders){
-        int i = os.close(orders.getOrders_id());
-        if(i==0){
+        if(os.close(orders.getOrders_id())==0){
             return new ReturnValue<Object>(-1,"关闭失败",null);
         }
         return new ReturnValue<Object>(1,"取消订单成功",null);
@@ -65,8 +63,7 @@ public class OrdersController {
 
     @PostMapping("/paid")
     public ReturnValue<Object> paid(@RequestBody Orders orders){
-        int i = os.paid(orders.getOrders_id());
-        if(i==0){
+        if(os.paid(orders.getOrders_id())==0){
             return new ReturnValue<Object>(-1,"付款失败",null);
         }
         return new ReturnValue<Object>(1,"付款成功",null);
@@ -74,35 +71,10 @@ public class OrdersController {
 
     @PostMapping("/finish")
     public ReturnValue<Object> finish(@RequestBody Orders orders){
-        int i = os.finish(orders.getOrders_id());
-        if(i==0){
+        if(os.finish(orders.getOrders_id())==0){
             return new ReturnValue<Object>(-1,"修改失败",null);
         }
         return new ReturnValue<Object>(1,"订单完成",null);
-    }
-
-    @PostMapping("/findAll")
-    private ReturnValue<List<Orders>> findAll(){
-        List<Orders> o = os.searchAll();
-        String msg = "查询出全部";
-        int ret = 1;
-        if(o==null){
-            msg = "没有查询到订单的数据";
-            ret = 2;
-        }
-        return new  ReturnValue<List<Orders>>(ret,msg,o);
-    }
-
-    @PostMapping("/findById")
-    private ReturnValue<Orders> findById(@RequestBody Orders orders){
-        Orders o = os.searchById(orders.getOrders_id());
-        String msg = "查询出结果";
-        int ret = 1;
-        if(o==null){
-            msg = "没有查询到订单的数据";
-            ret = 2;
-        }
-        return new  ReturnValue<Orders>(ret,msg,o);
     }
 
 }

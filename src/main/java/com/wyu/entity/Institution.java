@@ -60,6 +60,9 @@ public class Institution implements Serializable {
     @Column(name = "other",length = 200)
     private long other; //其他
 
+    @Column(name = "create_time",length = 200)
+    private long create_time; //其他
+
     @Enumerated(EnumType.ORDINAL)
     private I_state i_state; //申请状态
 

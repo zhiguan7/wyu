@@ -19,6 +19,7 @@ public class FactoryServiceImpl implements FactoryService{
     public void add(Factory factory) {
         factory.setF_state(Factory.F_state.APPLY);
         factory.setOther(GetTimeUtils.getTime());
+        factory.setCreate_time(GetTimeUtils.getTime());
         factoryDao.save(factory);
     }
 
@@ -35,7 +36,7 @@ public class FactoryServiceImpl implements FactoryService{
     }
 
     @Override
-    public int deal(int id, boolean flag) {
+    public int deal(long id, boolean flag) {
         int re = 0;
         if (flag){
             re = factoryDao.setState(id,Factory.F_state.SUCCESS, GetTimeUtils.getTime());

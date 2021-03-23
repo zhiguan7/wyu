@@ -1,7 +1,6 @@
 package com.wyu.controller;
 
 import com.wyu.dao.Orders_ItemDao;
-import com.wyu.entity.Orders;
 import com.wyu.entity.ReturnValue;
 import com.wyu.entity.SearchBuild;
 import com.wyu.util.GetInfoUtils;
@@ -69,6 +68,29 @@ public class SearchController {
         }else{
             searchBuild.getWhere().put("factory_id",GetInfoUtils.getFactoryId());
         }
+
+        searchBuild.setIndexes(new String[]{"factory"});
+        searchBuild.setExcludeFields(new String[]{"other"});
+        SearchRequest searchRequest = SearchBuildUtils.search(searchBuild);
+        try {
+            SearchResponse searchResponse =client.search(searchRequest, RequestOptions.DEFAULT);
+            SearchHits hits = searchResponse.getHits();
+            Iterator<SearchHit> iterator = hits.iterator();
+            List<Object> list = new ArrayList<>();
+            while(iterator.hasNext()){
+                SearchHit hit = iterator.next();
+                list.add(hit.getSourceAsMap());
+            }
+            list.add(hits.getTotalHits());
+            return new ReturnValue<List>(1,"查询成功",list);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ReturnValue<List>(-1,"查询失败",null);
+        }
+    }
+
+    @PostMapping("/factoryAll")
+    public ReturnValue<List> searchAllFactory(@RequestBody SearchBuild searchBuild) {
 
         searchBuild.setIndexes(new String[]{"factory"});
         searchBuild.setExcludeFields(new String[]{"other"});
@@ -190,7 +212,7 @@ public class SearchController {
 
     @PostMapping("/demand")
     public ReturnValue<List> searchDemand(@RequestBody SearchBuild searchBuild)  {
-        if(!GetInfoUtils.getUser()) return new ReturnValue<List>(-1,"查询失败，未知用户",null);
+        if(null==GetInfoUtils.getUser1()) return new ReturnValue<List>(-1,"查询失败，未知用户",null);
         if(null == searchBuild.getWhere()){
             Map<String,Object> m = new HashMap<>();
             m.put("user_id",GetInfoUtils.getUserId());
@@ -247,7 +269,7 @@ public class SearchController {
 
     @PostMapping("/userOrders")
     public ReturnValue<List> searchUserOrders(@RequestBody SearchBuild searchBuild)  {
-        if(!GetInfoUtils.getUser()) return new ReturnValue<List>(-1,"查询失败，未知用户",null);
+        if(null==GetInfoUtils.getUser1()) return new ReturnValue<List>(-1,"查询失败，未知用户",null);
         if(null == searchBuild.getWhere()){
             Map<String,Object> m = new HashMap<>();
             m.put("user",GetInfoUtils.getUserId());

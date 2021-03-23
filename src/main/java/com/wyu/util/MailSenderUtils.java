@@ -7,12 +7,12 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
+@Async
 public class MailSenderUtils {
 
     @Autowired
     JavaMailSenderImpl javaMailSender;
 
-    @Async
     public void sendCode(String email, String context){
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
@@ -30,7 +30,6 @@ public class MailSenderUtils {
         javaMailSender.send(mailMessage);
     }
 
-    @Async
     public void send(String email, String context){
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setSubject("测试");
